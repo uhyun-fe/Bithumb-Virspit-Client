@@ -7,8 +7,10 @@ import { CssBaseline } from "@material-ui/core";
 import { Home, Login, Signup } from "./routes";
 // Components
 import TopNav from "./components/TopNav/TopNav";
+import Footer from "./components/Footer/Footer";
 // Styles
 import GlobalStyle from "./assets/styles/global.style";
+import { Main } from "./assets/styles/basic.style";
 
 const App = () => {
    return (
@@ -17,12 +19,15 @@ const App = () => {
          <GlobalStyle />
          <Router>
             <TopNav is_login={false} />
-            <Switch>
-               <Route exact path="/" component={Home} />
-               <Route path="/login" component={Login} />
-               <Route path="/signup" component={Signup} />
-               <Redirect from="*" to="/" />
-            </Switch>
+            <Main>
+               <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Redirect from="*" to="/" />
+               </Switch>
+            </Main>
+            <Footer />
          </Router>
       </>
    );

@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
     :root {
-        --main: #F69420;
+        --main: #FE9601;
         --lightgray: #f2f2f2;
         --darkgray: #afafaf;
         --black: #333333;
@@ -47,6 +47,10 @@ export default createGlobalStyle`
     #root {
         padding: 30px 5%;
         font-family: 'GmarketSans', sans-serif;
+    }
+
+    a {
+        text-decoration: none;
     }
 
     input,

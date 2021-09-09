@@ -29,3 +29,11 @@ export const Button = styled.button`
       opacity: 0.9;
    }
 `;
+
+export const Main = styled.main`
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 50px 0 100px;
+`;
