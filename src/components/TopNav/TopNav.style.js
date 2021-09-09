@@ -34,6 +34,7 @@ export const Container = styled(SpaceBetweenFlexDiv)`
          button {
             padding: 10px;
             color: var(--white);
+            font-size: 1em;
             font-family: var(--en);
             border-radius: 10px;
          }

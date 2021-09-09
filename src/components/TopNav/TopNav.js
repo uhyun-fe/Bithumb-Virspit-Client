@@ -31,10 +31,14 @@ const TopNav = ({ is_login }) => {
          {/* 버튼 영역 */}
          {is_login ? (
             <CenterFlexDiv className="button-area logined">
-               <Button className="like">
-                  <img src={likeIcon} alt="liked product" />
-               </Button>
-               <Button>my</Button>
+               <Link to="/mypage">
+                  <Button className="like">
+                     <img src={likeIcon} alt="liked product" />
+                  </Button>
+               </Link>
+               <Link to="/mypage">
+                  <Button>my</Button>
+               </Link>
             </CenterFlexDiv>
          ) : (
             <CenterFlexDiv className="button-area">
