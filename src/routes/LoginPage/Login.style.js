@@ -5,19 +5,19 @@ import { CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 
 export const LoginForm = styled(CenterColumnFlexDiv)`
    padding-top: 50px;
-   width: 90%;
+   width: 100%;
    max-width: 550px;
    > * {
       width: 100%;
    }
    h2 {
       margin-bottom: 30px;
-      width: 400px;
+      width: 300px;
    }
    input {
       padding: 0 20px;
       margin-bottom: 10px;
-      height: 70px;
+      height: 65px;
       border-radius: 15px;
       background: var(--lightgray);
       &:focus {
@@ -27,7 +27,7 @@ export const LoginForm = styled(CenterColumnFlexDiv)`
    }
    button {
       margin: 30px 0 10px;
-      height: 70px;
+      height: 65px;
       color: var(--white);
       font-family: var(--en);
       font-size: 2em;

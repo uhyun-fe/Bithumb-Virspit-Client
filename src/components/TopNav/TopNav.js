@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Styles
-import { Button, CenterFlexDiv } from "../../assets/styles/basic.style";
+import { Button, CenterColumnFlexDiv, CenterFlexDiv } from "../../assets/styles/basic.style";
 import { Container } from "./TopNav.style";
 
 // Images & Icons
@@ -46,6 +46,10 @@ const TopNav = ({ is_login }) => {
                </Link>
             </CenterFlexDiv>
          )}
+
+         {/* 사이드메뉴 */}
+         <Button className="toggle" />
+         <CenterColumnFlexDiv className="side-menu">sidemenu</CenterColumnFlexDiv>
       </Container>
    );
 };

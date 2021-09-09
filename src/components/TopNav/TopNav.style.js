@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { SpaceBetweenFlexDiv } from "../../assets/styles/basic.style";
 // Icons
 import searchIcon from "../../assets/icons/search.png";
+import toggleIcon from "../../assets/icons/toggle.png";
 
 export const Container = styled(SpaceBetweenFlexDiv)`
    h1 {
@@ -61,6 +62,25 @@ export const Container = styled(SpaceBetweenFlexDiv)`
                filter: invert(100);
             }
          }
+      }
+   }
+   .toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      background-image: url(${toggleIcon});
+      background-size: 100%;
+   }
+   .side-menu {
+      display: none;
+   }
+   @media only screen and (max-width: 1024px) {
+      .search-bar,
+      .button-area {
+         display: none;
+      }
+      .toggle {
+         display: block;
       }
    }
 `;

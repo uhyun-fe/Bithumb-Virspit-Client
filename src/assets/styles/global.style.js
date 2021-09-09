@@ -9,6 +9,7 @@ export default createGlobalStyle`
         --white: #ffffff;
         --sixgray: #666666;
         --ninegray: #999999;
+        --red: #ff0000;
 
         --en: 'Russo One', sans-serif;
     }
@@ -46,6 +47,7 @@ export default createGlobalStyle`
 
     #root {
         padding: 30px 5%;
+        min-width: 375px;
         font-family: 'GmarketSans', sans-serif;
     }
 
@@ -60,6 +62,30 @@ export default createGlobalStyle`
         font-size: 1.2em;
         border: none;
         outline: none;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        -webkit-appearance: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        width: 15px;
+        height: 15px;
+        border: 1px solid var(--darkgray);
+        border-radius: 50%;
+        background:var(--white);
+        &:checked {
+            border-color: var(--main);
+            background: var(--main);
+        }
+    }
+
+    input[type="checkbox"] {
+        position: relative;
+        top: -1px;
+        border-radius: 0;
     }
 
     button {
