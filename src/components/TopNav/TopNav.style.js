@@ -29,11 +29,13 @@ export const Container = styled(SpaceBetweenFlexDiv)`
       }
    }
    .button-area {
+      text-align: right;
       width: 170px;
       a {
          button {
             padding: 10px;
             color: var(--white);
+            font-size: 1em;
             font-family: var(--en);
             border-radius: 10px;
          }
