@@ -29,6 +29,7 @@ export const Container = styled(SpaceBetweenFlexDiv)`
       }
    }
    .button-area {
+      text-align: right;
       width: 170px;
       a {
          button {

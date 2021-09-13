@@ -1,7 +1,12 @@
 import React from "react";
+import { ModalArea } from "./Modal.style";
 
-const Modal = () => {
-   return <div>modal</div>;
+const Modal = ({ width_percent }) => {
+   return (
+      <ModalArea>
+         <div className="content">modal</div>
+      </ModalArea>
+   );
 };
 
 export default Modal;

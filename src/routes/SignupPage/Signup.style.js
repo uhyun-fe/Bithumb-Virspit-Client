@@ -45,6 +45,7 @@ export const InputLabel = styled.label`
          padding: 0 20px;
          width: 100%;
          height: 65px;
+         font-size: 1em;
          border-radius: 10px;
          background: var(--lightgray);
          &:focus {

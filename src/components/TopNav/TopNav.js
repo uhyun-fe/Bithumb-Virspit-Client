@@ -30,7 +30,7 @@ const TopNav = ({ is_login }) => {
 
          {/* 버튼 영역 */}
          {is_login ? (
-            <CenterFlexDiv className="button-area logined">
+            <div className="button-area logined">
                <Link to="/mypage">
                   <Button className="like">
                      <img src={likeIcon} alt="liked product" />
@@ -39,16 +39,16 @@ const TopNav = ({ is_login }) => {
                <Link to="/mypage">
                   <Button>my</Button>
                </Link>
-            </CenterFlexDiv>
+            </div>
          ) : (
-            <CenterFlexDiv className="button-area">
+            <div className="button-area">
                <Link to="/login">
                   <Button>Login</Button>
                </Link>
                <Link to="/signup">
                   <Button>Sign Up</Button>
                </Link>
-            </CenterFlexDiv>
+            </div>
          )}
 
          {/* 사이드메뉴 */}
