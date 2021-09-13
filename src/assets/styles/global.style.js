@@ -12,6 +12,7 @@ export default createGlobalStyle`
         --red: #ff0000;
 
         --en: 'Russo One', sans-serif;
+        --ko: 'GmarketSans', sans-serif;
     }
 
     /* font */
@@ -48,7 +49,7 @@ export default createGlobalStyle`
     #root {
         padding: 30px 5%;
         min-width: 375px;
-        font-family: 'GmarketSans', sans-serif;
+        font-family: var(--ko);
     }
 
     a {

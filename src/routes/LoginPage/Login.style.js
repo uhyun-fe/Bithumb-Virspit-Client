@@ -44,3 +44,26 @@ export const LoginForm = styled(CenterColumnFlexDiv)`
       }
    }
 `;
+
+export const CheckBoxLabel = styled.label`
+   display: inline-flex;
+   align-items: center;
+   margin-bottom: 5px;
+   color: var(--black);
+   input {
+      margin-right: 10px;
+      margin-bottom: 0;
+      &:focus {
+         border: 1px solid var(--darkgray);
+      }
+   }
+   button {
+      margin: 0 0 0 5px;
+      width: auto;
+      height: auto;
+      color: var(--main);
+      font-size: inherit;
+      font-weight: 500;
+      background: none;
+   }
+`;
