@@ -4,6 +4,7 @@ export const CenterFlexDiv = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+   width: 100%;
 `;
 
 export const CenterColumnFlexDiv = styled.div`
@@ -11,12 +12,14 @@ export const CenterColumnFlexDiv = styled.div`
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   width: 100%;
 `;
 
 export const LeftFlexDiv = styled.div`
    display: flex;
    justify-content: flex-start;
    align-items: center;
+   width: 100%;
 `;
 
 export const LeftColumnFlexDiv = styled.div`
@@ -24,12 +27,14 @@ export const LeftColumnFlexDiv = styled.div`
    flex-direction: column;
    justify-content: center;
    align-items: flex-start;
+   width: 100%;
 `;
 
 export const SpaceBetweenFlexDiv = styled.div`
    display: flex;
    justify-content: space-between;
    align-items: center;
+   width: 100%;
 `;
 
 export const Button = styled.button`

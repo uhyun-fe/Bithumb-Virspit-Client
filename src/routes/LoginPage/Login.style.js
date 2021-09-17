@@ -5,7 +5,6 @@ import { CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 
 export const LoginForm = styled(CenterColumnFlexDiv)`
    padding-top: 50px;
-   width: 100%;
    max-width: 550px;
    > * {
       width: 100%;
