@@ -12,6 +12,7 @@ export const Container = styled(SpaceBetweenFlexDiv)`
    }
    .search-bar {
       padding: 10px 20px;
+      width: auto;
       border-radius: 10px;
       background: var(--lightgray);
       input {
