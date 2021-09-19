@@ -5,6 +5,7 @@ export default createGlobalStyle`
         --main: #FE9601;
         --lightmain: #FFF8F0;
         --lightgray: #f2f2f2;
+        --middlegray: #d2d2d2;
         --darkgray: #afafaf;
         --black: #333333;
         --white: #ffffff;

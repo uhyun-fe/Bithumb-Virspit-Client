@@ -1,10 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
 
 // Routes
-import { Home, Login, Signup } from "./routes";
+import { Home, Login, Product, Signup } from "./routes";
 // Components
 import TopNav from "./components/TopNav/TopNav";
 import Footer from "./components/Footer/Footer";
@@ -24,6 +23,7 @@ const App = () => {
                   <Route exact path="/" component={Home} />
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={Signup} />
+                  <Route path="/nft/:id" component={Product} />
                   <Redirect from="*" to="/" />
                </Switch>
             </Main>
