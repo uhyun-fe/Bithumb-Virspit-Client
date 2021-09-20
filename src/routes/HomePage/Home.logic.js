@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // test
 import testImage from "../../assets/images/test.jpg";
 
-const HomeLogic = () => {
+const HomeLogic = ({ match, history }) => {
    const [state, setState] = useState({ category_id: 0, is_team: false });
    const [categories, setCategories] = useState([]);
    const [nftList, setNftList] = useState([]);
