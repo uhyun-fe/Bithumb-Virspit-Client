@@ -8,7 +8,7 @@ export default {
 };
 
 export const types = {
-   mynft: "mynft",
+   mynfts: "mynft",
    payments: "payments",
    likes: "likes",
    myinfo: "myinfo",
