@@ -38,7 +38,7 @@ const Home = ({ match, history }) => {
                </ListTitleBox>
                <ListItemBox>
                   {nftList.map((nft, i) => (
-                     <NFTCard key={i} nft={nft} setLike={(id) => console.log("click like button" + id)} history={history} />
+                     <NFTCard key={i} nft={nft} line_count={3} setLike={(id) => console.log("click like button" + id)} history={history} />
                   ))}
                </ListItemBox>
             </CenterColumnFlexDiv>

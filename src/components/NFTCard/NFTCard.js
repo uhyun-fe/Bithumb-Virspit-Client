@@ -14,7 +14,7 @@ const NFTCard = ({ nft, line_count, setLike, history }) => {
             <p>[배구] 김연경</p>
             <p>10 Klay</p>
          </HoverBox>
-         <Like className={true ? "is_like" : ""} onClick={() => setLike && setLike(nft.id)} />
+         <Like className={nft.is_liked ? "is_like" : ""} onClick={() => setLike && setLike(nft.id)} />
       </Card>
    );
 };

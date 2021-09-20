@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import testImage from "../../assets/images/test.jpg";
 
 const SearchLogic = ({ match, history }) => {
-   const [state, setState] = useState({ is_nft: true, total_count: 234234, list: [] });
+   const [state, setState] = useState({ is_nft: true, total_count: 8, list: [] });
 
    useEffect(() => {
       getSearchedList();
@@ -20,6 +20,12 @@ const SearchLogic = ({ match, history }) => {
       console.log(match.params.keyword);
       // test
       const testNFTList = [
+         { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
+         { id: 1, title: "테스트 NFT", imageUrl: testImage },
+         { id: 1, title: "테스트 NFT", imageUrl: testImage },
+         { id: 1, title: "테스트 NFT", imageUrl: testImage },
+         { id: 1, title: "테스트 NFT", imageUrl: testImage },
+         { id: 1, title: "테스트 NFT", imageUrl: testImage },
          { id: 1, title: "테스트 NFT", imageUrl: testImage },
          { id: 1, title: "테스트 NFT", imageUrl: testImage },
          { id: 1, title: "테스트 NFT", imageUrl: testImage },
