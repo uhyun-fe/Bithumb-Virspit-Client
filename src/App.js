@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { CssBaseline } from "@material-ui/core";
 
 // Routes
-import { Home, Login, Product, Search, Signup } from "./routes";
+import { Home, Login, Mypage, Product, Search, Signup } from "./routes";
 // Components
 import TopNav from "./components/TopNav/TopNav";
 import Footer from "./components/Footer/Footer";
@@ -19,7 +19,7 @@ const App = () => {
          <CssBaseline />
          <GlobalStyle />
          <Router>
-            <Route render={(props) => <TopNav is_login={false} {...props} />} />
+            <Route render={(props) => <TopNav is_login={true} {...props} />} />
             <Main>
                <Switch>
                   <Route exact path={pathname.home} component={Home} />
@@ -27,6 +27,7 @@ const App = () => {
                   <Route path={pathname.signup} component={Signup} />
                   <Route path={pathname.detail(":id")} component={Product} />
                   <Route path={pathname.search(":keyword")} component={Search} />
+                  <Route path={pathname.mypage(":type")} component={Mypage} />
                   <Redirect from="*" to={pathname.home} />
                </Switch>
             </Main>

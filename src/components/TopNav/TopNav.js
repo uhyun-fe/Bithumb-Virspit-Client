@@ -45,7 +45,7 @@ const TopNav = ({ is_login, history }) => {
                      <img src={likeIcon} alt="liked product" />
                   </Button>
                </Link>
-               <Link to={pathname.mypage(types.mynft)}>
+               <Link to={pathname.mypage(types.mynfts)}>
                   <Button>my</Button>
                </Link>
             </div>

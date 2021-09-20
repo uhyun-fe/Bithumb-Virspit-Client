@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // Styles
-import { CenterColumnFlexDiv, CenterFlexDiv } from "../../assets/styles/basic.style";
+import { CenterFlexDiv, CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 
 // Icons
 import likeIcon from "../../assets/icons/like.png";
@@ -9,13 +9,13 @@ import likeIcon from "../../assets/icons/like.png";
 export const Card = styled(CenterFlexDiv)`
    position: relative;
    margin-bottom: 2%;
-   padding-bottom: 52%;
-   width: 32%;
+   padding-bottom: ${(props) => (props.line_count === 3 ? "52%" : "38%")};
+   width: ${(props) => (props.line_count === 3 ? "32%" : "23.5%")};
    height: 0;
    border-radius: 20px;
    overflow: hidden;
    cursor: pointer;
-   &:not(:nth-child(3n)) {
+   &:not(:nth-child(${(props) => (props.line_count === 3 ? "3n" : "4n")})) {
       margin-right: 2%;
    }
    &:hover {
