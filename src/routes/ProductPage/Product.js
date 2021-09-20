@@ -7,6 +7,9 @@ import ProductLogic from "./Product.logic";
 import { Button, CenterColumnFlexDiv, CenterFlexDiv, SpaceBetweenFlexDiv, LeftColumnFlexDiv } from "../../assets/styles/basic.style";
 import { InfoBox, ImageSection, SummarySection } from "./Product.style";
 
+// Contents
+import pathname from "../../assets/contents/pathname";
+
 const Product = ({ match, history }) => {
    const { product } = ProductLogic({ history });
    const is_logined = false;
@@ -39,7 +42,7 @@ const Product = ({ match, history }) => {
                   </SpaceBetweenFlexDiv>
                   {!is_logined && (
                      <span className="login-guide">
-                        * 본 상품은 로그인 후 구매가능합니다. <Button onClick={() => history.push("/login")}>로그인하기</Button>
+                        * 본 상품은 로그인 후 구매가능합니다. <Button onClick={() => history.push(pathname.login)}>로그인하기</Button>
                      </span>
                   )}
                </LeftColumnFlexDiv>

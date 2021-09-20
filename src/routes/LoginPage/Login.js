@@ -9,13 +9,16 @@ import logoImage from "../../assets/images/logo.png";
 // Logic
 import LoginLogic from "./Login.logic";
 
+// Contents
+import pathname from "../../assets/contents/pathname";
+
 const Login = ({ match, history }) => {
    const { email, inputRef, setInfo, login } = LoginLogic({ history });
 
    return (
       <LoginForm>
          <h2>
-            <Link to="/">
+            <Link to={pathname.home}>
                <img src={logoImage} alt="virspit logo" />
             </Link>
          </h2>
@@ -40,7 +43,7 @@ const Login = ({ match, history }) => {
          </LeftColumnFlexDiv>
          <Button onClick={login}>LOGIN</Button>
          <p>
-            계정이 없으신가요? <Link to="/signup">회원가입하기</Link>
+            계정이 없으신가요? <Link to={pathname.signup}>회원가입하기</Link>
          </p>
       </LoginForm>
    );

@@ -15,6 +15,9 @@ import logoImage from "../../assets/images/logo.png";
 // Docs
 import termsOfUse from "../../assets/docs/이용약관.txt";
 
+// Contents
+import pathname from "../../assets/contents/pathname";
+
 const Signup = ({ match, history }) => {
    // useEffect(() => {
    //    fetch(termsOfUse)
@@ -28,7 +31,7 @@ const Signup = ({ match, history }) => {
       <>
          <SignupForm>
             <h2>
-               <Link to="/">
+               <Link to={pathname.home}>
                   <img src={logoImage} alt="virspit logo" />
                </Link>
             </h2>
@@ -107,7 +110,7 @@ const Signup = ({ match, history }) => {
             </LeftColumnFlexDiv>
             <Button onClick={signup}>SIGN UP</Button>
             <p>
-               이미 계정이 있으신가요? <Link to="/login">로그인하기</Link>
+               이미 계정이 있으신가요? <Link to={pathname.login}>로그인하기</Link>
             </p>
          </SignupForm>
          {/* {true && <Modal />} */}

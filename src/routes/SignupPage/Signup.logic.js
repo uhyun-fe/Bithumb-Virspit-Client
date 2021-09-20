@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// Contents
+import pathname from "../../assets/contents/pathname";
+
 const SignupLogic = ({ history }) => {
    const [inputState, setInputState] = useState({
       email: "",
@@ -42,7 +45,7 @@ const SignupLogic = ({ history }) => {
    const signup = () => {
       if (!signupNullCheck()) return;
       console.log(inputState);
-      history.push("/login");
+      history.push(pathname.login);
 
       // axios 연결
       // try {

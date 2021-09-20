@@ -25,7 +25,6 @@ export const ImageSection = styled(CenterFlexDiv)`
       border-radius: 30px;
       box-shadow: 0 10px 13px var(--darkgray);
       overflow: hidden;
-      cursor: pointer;
       img {
          position: absolute;
          top: 0;
