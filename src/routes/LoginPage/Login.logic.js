@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+
+// Contents
 import cookie_text from "../../assets/contents/cookie_text";
+import pathname from "../../assets/contents/pathname";
 
 const LoginLogic = ({ history }) => {
    const [inputState, setInputState] = useState({ email: "", pw: "", check_save_email: false });
@@ -31,7 +34,7 @@ const LoginLogic = ({ history }) => {
       }
 
       if (inputState.check_save_email) window.localStorage.setItem(cookie_text.user_email, inputState.email);
-      history.push("/");
+      history.push(pathname.home);
 
       // axios 연결
       // try {
