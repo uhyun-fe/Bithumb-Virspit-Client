@@ -7,10 +7,10 @@ export default function Welcome_user() {
     return (
         
         <div>
-            <p className='welcome_text'>
+            <div className='welcome_text'>
                 <span className='user_name'>{a}</span>님,
-                <p>반갑습니다!</p>
-            </p>
+                <div>반갑습니다!</div>
+            </div>
         </div>
     )
 }
