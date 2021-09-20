@@ -19,7 +19,7 @@ const App = () => {
          <CssBaseline />
          <GlobalStyle />
          <Router>
-            <Route render={(props) => <TopNav is_login={true} {...props} />} />
+            <Route render={(props) => <TopNav is_login={false} {...props} />} />
             <Main>
                <Switch>
                   <Route exact path={pathname.home} component={Home} />
