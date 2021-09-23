@@ -12,6 +12,7 @@ export default createGlobalStyle`
         --sixgray: #666666;
         --ninegray: #999999;
         --red: #ff0000;
+        --green: #268617;
 
         --en: 'Russo One', sans-serif;
         --ko: 'GmarketSans', sans-serif;

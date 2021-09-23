@@ -10,10 +10,31 @@ export const ModalArea = styled(CenterFlexDiv)`
    height: 100%;
    background: rgba(0, 0, 0, 0.5);
 
-   .content {
-      width: 400px;
-      max-height: 100px;
+   .modal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 30px;
+      width: 90%;
+      max-width: ${(props) => props.width_percent + "px"};
+      max-height: 500px;
       background: var(--white);
       overflow: auto;
+      .top {
+         align-items: flex-start;
+         margin-bottom: 20px;
+         h4 {
+            font-size: 1.3em;
+            width: 90%;
+            word-break: break-all;
+         }
+         button {
+            font-size: 1.3em;
+            background: none;
+         }
+      }
+      .contents {
+         width: 100%;
+      }
    }
 `;

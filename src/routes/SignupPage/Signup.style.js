@@ -35,6 +35,7 @@ export const SignupForm = styled(CenterColumnFlexDiv)`
 
 export const InputLabel = styled.label`
    margin-bottom: 20px;
+   position: relative;
    color: var(--ninegray);
    font-size: 1.2em;
    font-weight: 700;
@@ -60,6 +61,21 @@ export const InputLabel = styled.label`
       font-size: 0.8em;
       font-weight: 300;
       text-align: left;
+      &.ok {
+         color: var(--green);
+      }
+   }
+   button {
+      position: absolute;
+      padding-top: 2px;
+      top: 43px;
+      right: 20px;
+      width: 70px;
+      height: 35px;
+      color: var(--white);
+      font-size: 1em;
+      border-radius: 10px;
+      background: var(--main);
    }
 `;
 
@@ -90,6 +106,19 @@ export const CheckBoxLabel = styled.label`
       color: var(--main);
       font-size: inherit;
       font-weight: 500;
+      background: none;
+   }
+`;
+
+export const CheckModalContentBox = styled(CenterColumnFlexDiv)`
+   align-items: flex-end;
+   p {
+      margin-bottom: 20px;
+      width: 100%;
+   }
+   .ok {
+      color: var(--main);
+      font-size: 1.3em;
       background: none;
    }
 `;
