@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -8,25 +8,18 @@ import Modal from "../../components/Modal/Modal";
 import SignupLogic from "./Signup.logic";
 
 // Images & Icons
-import { SignupForm, InputLabel, RadioLabel, CheckBoxLabel } from "./Signup.style";
+import { SignupForm, InputLabel, RadioLabel, CheckBoxLabel, CheckModalContentBox } from "./Signup.style";
 import { Button, LeftColumnFlexDiv, LeftFlexDiv } from "../../assets/styles/basic.style";
 import logoImage from "../../assets/images/logo.png";
-
-// Docs
-import termsOfUse from "../../assets/docs/이용약관.txt";
 
 // Contents
 import pathname from "../../assets/contents/pathname";
 
+// 약관동의 순서
+const TERM_ORDER = ["virspit_term", "transaction_term", "privacy_term", "marketing_term"];
+
 const Signup = ({ match, history }) => {
-   // useEffect(() => {
-   //    fetch(termsOfUse)
-   //       .then((r) => r.text())
-   //       .then((text) => {
-   //          console.log("text decoded:", text);
-   //       });
-   // }, []);
-   const { inputState, setInfo, signup, checkPwForm } = SignupLogic({ history });
+   const { inputState, setInfo, signup, checkPwForm, sendEmail, isRightEmailCode, setTerms, closeModal } = SignupLogic({ history });
    return (
       <>
          <SignupForm>
@@ -41,8 +34,23 @@ const Signup = ({ match, history }) => {
                type_text="이메일"
                placeholder="이메일을 입력하세요"
                value={inputState.email}
+               certification={sendEmail}
+               disabled={inputState.email_code !== null}
                onChange={({ target: { value } }) => setInfo({ key: "email", value })}
             />
+            {inputState.email_code !== null && (
+               <InputBox
+                  type="email"
+                  type_text="이메일 인증코드"
+                  placeholder="이메일로 전송된 인증코드를 입력하세요"
+                  value={inputState.email_code}
+                  certification={isRightEmailCode}
+                  disabled={inputState.is_right_email}
+                  onChange={({ target: { value } }) => setInfo({ key: "email_code", value })}
+                  guide={inputState.is_right_email ? "인증되었습니다" : "인증코드 입력 후 인증버튼을 클릭해주세요"}
+                  guide_ok={inputState.is_right_email}
+               />
+            )}
             {/* Name */}
             <InputBox
                type_text="이름"
@@ -88,42 +96,40 @@ const Signup = ({ match, history }) => {
             <GenderRadioBox onClick={({ target: { value } }) => setInfo({ key: "gender", value })} />
             {/* Terms */}
             <LeftColumnFlexDiv>
-               <CheckTerms
-                  title="[필수] ViRSPiT 이용약관 동의"
-                  txt={"[sdf]"}
-                  onClick={({ target: { checked } }) => setInfo({ key: "virspit_term", value: checked })}
-               />
-               <CheckTerms
-                  title="[필수] 전자금융거래 이용약관 동의"
-                  txt={"[sdf]"}
-                  onClick={({ target: { checked } }) => setInfo({ key: "transaction_term", value: checked })}
-               />
-               <CheckTerms
-                  title="[필수] 개인정보 수집 및 이용 동의"
-                  txt={"[sdf]"}
-                  onClick={({ target: { checked } }) => setInfo({ key: "privacy_term", value: checked })}
-               />
-               <CheckTerms
-                  title="[선택] ViRSPiT 마케팅 정보 수신 동의"
-                  onClick={({ target: { checked } }) => setInfo({ key: "marketing_term", value: checked })}
-               />
+               {TERM_ORDER.map((term, i) => (
+                  <CheckTerms
+                     key={i}
+                     title={`[${inputState[term].is_essential ? "필수" : "선택"}] ${inputState[term].title}`}
+                     is_apply={inputState[term].is_apply}
+                     setModal={inputState[term].is_essential ? () => setTerms(term) : undefined}
+                     onClick={({ target: { checked } }) => setInfo({ key: term, value: { ...inputState[term], is_apply: checked } })}
+                  />
+               ))}
             </LeftColumnFlexDiv>
             <Button onClick={signup}>SIGN UP</Button>
             <p>
                이미 계정이 있으신가요? <Link to={pathname.login}>로그인하기</Link>
             </p>
          </SignupForm>
-         {/* {true && <Modal />} */}
+         {inputState.selected_term && (
+            <Modal
+               max_width={350}
+               title={inputState[inputState.selected_term].title}
+               contents={CheckModalContents(inputState[inputState.selected_term].contents, () => closeModal(true))}
+               closing={() => closeModal(false)}
+            />
+         )}
       </>
    );
 };
 
-const InputBox = ({ type, type_text, value, placeholder, onChange, guide }) => {
+const InputBox = ({ type, type_text, value, placeholder, onChange, guide, guide_ok, certification, disabled }) => {
    return (
       <InputLabel>
          {type_text}
-         <input type={type || "text"} value={value} placeholder={placeholder} onChange={onChange} />
-         {guide && <p>* {guide}</p>}
+         <input type={type || "text"} value={value} placeholder={placeholder} onChange={onChange} disabled={disabled} />
+         {guide && <p className={guide_ok ? "ok" : ""}>* {guide}</p>}
+         {certification && !disabled && <Button onClick={() => certification()}>인증</Button>}
       </InputLabel>
    );
 };
@@ -151,13 +157,33 @@ const GenderRadioBox = ({ onClick }) => {
    );
 };
 
-const CheckTerms = ({ title, txt, onClick }) => {
+// 동의 체크 영역
+const CheckTerms = ({ is_apply, title, setModal, onClick }) => {
    return (
       <CheckBoxLabel>
-         <input type="checkbox" onChange={onClick} />
+         <input type="checkbox" checked={is_apply} onChange={onClick} />
          {title}
-         {txt && <Button>{`(보기)`}</Button>}
+         {setModal && <Button onClick={setModal}>{`(보기)`}</Button>}
       </CheckBoxLabel>
+   );
+};
+
+// 동의 관련 모달 영역
+const CheckModalContents = (contents, closeModal) => {
+   return (
+      <CheckModalContentBox>
+         <p>
+            {contents.split("\n").map((c, i) => (
+               <span key={i}>
+                  {c}
+                  <br />
+               </span>
+            ))}
+         </p>
+         <Button className="ok" onClick={closeModal}>
+            동의
+         </Button>
+      </CheckModalContentBox>
    );
 };
 

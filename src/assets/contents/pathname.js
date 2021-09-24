@@ -14,3 +14,11 @@ export const types = {
    myinfo: "myinfo",
    logout: "logout",
 };
+
+export const types_titles = {
+   mynfts: "MY NFT",
+   payments: "결제내역",
+   likes: "관심상품",
+   myinfo: "회원정보",
+   logout: "로그아웃",
+};

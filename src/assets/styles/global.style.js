@@ -12,6 +12,7 @@ export default createGlobalStyle`
         --sixgray: #666666;
         --ninegray: #999999;
         --red: #ff0000;
+        --green: #268617;
 
         --en: 'Russo One', sans-serif;
         --ko: 'GmarketSans', sans-serif;
@@ -65,6 +66,16 @@ export default createGlobalStyle`
         font-size: 1.2em;
         border: none;
         outline: none;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
     }
 
     input[type="checkbox"],
