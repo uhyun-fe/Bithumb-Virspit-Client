@@ -58,6 +58,11 @@ export const SummarySection = styled(LeftColumnFlexDiv)`
       background: var(--lightgray);
       strong {
          padding-top: 2px;
+         width: 75%;
+      }
+      > div {
+         width: 25%;
+         min-width: 100px;
       }
    }
    .buy-button {

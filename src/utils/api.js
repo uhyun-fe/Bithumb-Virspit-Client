@@ -1,4 +1,5 @@
 import axios from "axios";
+import cookie from "react-cookies";
 
 // Cookie_Text
 import cookie_text from "../assets/contents/cookie_text";
