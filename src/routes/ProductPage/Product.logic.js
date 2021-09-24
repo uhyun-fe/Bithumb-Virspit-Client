@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import testImage from "../../assets/images/test.jpg";
 
 const ProductLogic = ({ history }) => {
-   const [product, setProduct] = useState({});
+   const [product, setProduct] = useState({ price: 0 });
+   const [state, setState] = useState({ count: 1 });
+
    useEffect(() => {
       const test = {
          id: 1,
@@ -20,7 +22,14 @@ const ProductLogic = ({ history }) => {
       setProduct(test);
    }, []);
 
-   return { product };
+   // 수량 변경
+   const setCountNumber = (v) => {
+      if (!v) return;
+      if (parseInt(v) < 1 || parseInt(v) > 999) return;
+      setState({ ...state, count: parseInt(v) });
+   };
+
+   return { product, state, setCountNumber };
 };
 
 export default ProductLogic;

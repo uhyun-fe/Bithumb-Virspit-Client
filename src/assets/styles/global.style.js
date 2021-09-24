@@ -68,6 +68,16 @@ export default createGlobalStyle`
         outline: none;
     }
 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     input[type="checkbox"],
     input[type="radio"] {
         -webkit-appearance: none;

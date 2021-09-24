@@ -3,6 +3,9 @@ import React from "react";
 // Logics
 import ProductLogic from "./Product.logic";
 
+// Components
+import QuantityCounter from "../../components/QuantityCounter/QuantityCounter";
+
 // Styles
 import { Button, CenterColumnFlexDiv, CenterFlexDiv, SpaceBetweenFlexDiv, LeftColumnFlexDiv } from "../../assets/styles/basic.style";
 import { InfoBox, ImageSection, SummarySection } from "./Product.style";
@@ -11,7 +14,7 @@ import { InfoBox, ImageSection, SummarySection } from "./Product.style";
 import pathname from "../../assets/contents/pathname";
 
 const Product = ({ match, history }) => {
-   const { product } = ProductLogic({ history });
+   const { product, state, setCountNumber } = ProductLogic({ history });
    const is_logined = false;
    return (
       <CenterColumnFlexDiv>
@@ -32,12 +35,12 @@ const Product = ({ match, history }) => {
                <LeftColumnFlexDiv>
                   <SpaceBetweenFlexDiv className="counter-box">
                      <strong>{product.title}</strong>
-                     <div>수량설정박스</div>
+                     <QuantityCounter value={state.count} setValue={setCountNumber} />
                   </SpaceBetweenFlexDiv>
                   <SpaceBetweenFlexDiv>
                      <Button className={`buy-button${is_logined ? " possible" : ""}`}>구매하기</Button>
                      <span className="price">
-                        <strong>{product.price}</strong> Klay
+                        <strong>{product.price * state.count}</strong> Klay
                      </span>
                   </SpaceBetweenFlexDiv>
                   {!is_logined && (
