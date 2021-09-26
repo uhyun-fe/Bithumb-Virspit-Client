@@ -11,7 +11,7 @@ import { AdSection, MainSection, CategoryBox, ListItemBox, ListTitleBox } from "
 import { Button, CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 import NFTCard from "../../components/NFTCard/NFTCard";
 
-const Home = ({ match, history }) => {
+const Home = ({ match, history, is_login }) => {
    const { state, categories, nftList, setSelectedCategoryId, setIsTeam } = HomeLogic({ match, history });
    return (
       <CenterColumnFlexDiv>
