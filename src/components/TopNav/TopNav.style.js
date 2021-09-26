@@ -21,6 +21,8 @@ export const Container = styled(SpaceBetweenFlexDiv)`
          background: none;
       }
       button {
+         position: relative;
+         top: -2px;
          margin-left: 5px;
          width: 15px;
          height: 15px;
