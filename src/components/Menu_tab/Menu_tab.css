@@ -1,5 +1,5 @@
 .back {
-   margin: 30px;
+   margin: 30px 0;
    left: 150px;
    width: 89vw;
    height: 150px;
@@ -26,8 +26,4 @@ li:hover {
    color: var(--main);
    text-decoration: none;
    border-bottom: 3px solid var(--main);
-}
-
-.click_menu {
-   color: #f69420;
 }
