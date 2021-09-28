@@ -38,6 +38,7 @@ const ProductLogic = ({ history, is_login }) => {
    // 결제하기
    const pay = () => {
       alert("결제 구현중입니다.");
+      setState({ ...state, pay_modal_on: false });
    };
 
    // test 지갑정보 조회
