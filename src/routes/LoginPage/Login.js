@@ -12,8 +12,8 @@ import LoginLogic from "./Login.logic";
 // Contents
 import pathname from "../../assets/contents/pathname";
 
-const Login = ({ match, history }) => {
-   const { email, inputRef, setInfo, login } = LoginLogic({ history });
+const Login = ({ match, history, is_login, setLogin }) => {
+   const { email, inputRef, setInfo, login } = LoginLogic({ history, is_login, setLogin });
 
    return (
       <LoginForm>
