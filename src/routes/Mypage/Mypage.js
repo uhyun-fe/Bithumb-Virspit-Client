@@ -20,7 +20,7 @@ const Mypage = ({ match, history, is_login }) => {
          {match.params.type === types.logout ? (
             <Logout />
          ) : match.params.type === types.payments ? (
-            <Payments />
+            <Payments history={history} />
          ) : match.params.type === types.likes ? (
             <Likes history={history} />
          ) : match.params.type === types.myinfo ? (

@@ -38,7 +38,7 @@ export const SpaceBetweenFlexDiv = styled.div`
 `;
 
 export const Button = styled.button`
-   transition: 0.1s ease-in-out;
+   transition: opacity 0.1s ease-in-out;
    opacity: 1;
    &:hover {
       opacity: 0.8;
