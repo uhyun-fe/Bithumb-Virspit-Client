@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Contents
 import pathname from "../../assets/contents/pathname";
 import terms from "../../assets/contents/terms";
+import { checkPwForm, setPhoneForm, setBirthdayForm } from "../../utils/lib";
 
 const SignupLogic = ({ history }) => {
    const [inputState, setInputState] = useState({
@@ -92,24 +93,6 @@ const SignupLogic = ({ history }) => {
    const closeModal = (is_apply) => {
       const key = inputState.selected_term;
       setInputState({ ...inputState, selected_term: null, [key]: { ...inputState[key], is_apply: is_apply || inputState[key].is_apply } });
-   };
-
-   /* 정규식 관련 */
-
-   // Check Right Password Form
-   const checkPwForm = (str) => {
-      const isRightPwForm = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
-      return isRightPwForm.test(str);
-   };
-
-   // Change Right Phone Form
-   const setPhoneForm = (str) => {
-      return str.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
-   };
-
-   // Change Right Birthday Form
-   const setBirthdayForm = (str) => {
-      return str.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
    };
 
    return { inputState, setInfo, signup, checkPwForm, sendEmail, isRightEmailCode, setTerms, closeModal };
