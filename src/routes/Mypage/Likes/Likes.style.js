@@ -4,6 +4,7 @@ import { LeftFlexDiv } from "../../../assets/styles/basic.style";
 
 export const ListItemBox = styled(LeftFlexDiv)`
    flex-wrap: wrap;
+   margin-bottom: 30px;
 `;
 
 export const TotalCount = styled.div`

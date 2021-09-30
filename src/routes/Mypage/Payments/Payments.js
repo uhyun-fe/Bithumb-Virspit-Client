@@ -7,9 +7,12 @@ import PaymentsLogic from "./Payments.logic";
 // Contents
 import pathname from "../../../assets/contents/pathname";
 
+// Components
+import Pager from "../../../components/Pager/Pager";
+
 // Styles
 import { Button, CenterColumnFlexDiv, LeftColumnFlexDiv, LeftFlexDiv } from "../../../assets/styles/basic.style";
-import { TotalCount, PaymentItemBox, SearchBox } from "./Payments.style";
+import { TotalCount, PaymentItemListBox, PaymentItemBox, SearchBox } from "./Payments.style";
 
 const Payments = ({ history }) => {
    const { state, setSearchDate, getPaymentsList } = PaymentsLogic({ history });
@@ -19,11 +22,12 @@ const Payments = ({ history }) => {
          <TotalCount>
             총 <strong>{state.total_count.toLocaleString("ko-KR")}</strong>개
          </TotalCount>
-         <LeftColumnFlexDiv>
+         <PaymentItemListBox>
             {state.list.map((item, i) => (
                <PaymentItem key={i} item={item} />
             ))}
-         </LeftColumnFlexDiv>
+         </PaymentItemListBox>
+         <Pager page={1} count={12} total={200} paging={() => console.log("넘기기")} />
       </LeftColumnFlexDiv>
    );
 };
