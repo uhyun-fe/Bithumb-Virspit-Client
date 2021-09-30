@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import Welcome_user from "./Welcome_user";
 import pathname, { types, types_titles } from "../../assets/contents/pathname";
 
-import { CenterFlexDiv } from "../../assets/styles/basic.style";
-import "./Menu_tab.css";
+// Styles
+import { MenuTabBox } from "./Menu_tab.style";
 
 export default function Menu_tab({ user_name, type }) {
    return (
-      <CenterFlexDiv>
+      <MenuTabBox>
          <div className="back">
             <Welcome_user user_name={user_name} />
             <ul>
@@ -20,6 +20,6 @@ export default function Menu_tab({ user_name, type }) {
                ))}
             </ul>
          </div>
-      </CenterFlexDiv>
+      </MenuTabBox>
    );
 }
