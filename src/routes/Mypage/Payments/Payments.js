@@ -12,10 +12,10 @@ import { Button, CenterColumnFlexDiv, LeftColumnFlexDiv, LeftFlexDiv } from "../
 import { TotalCount, PaymentItemBox, SearchBox } from "./Payments.style";
 
 const Payments = ({ history }) => {
-   const { state } = PaymentsLogic({ history });
+   const { state, setSearchDate, getPaymentsList } = PaymentsLogic({ history });
    return (
       <LeftColumnFlexDiv>
-         <SearchArea />
+         <SearchArea search_date={state.search_date} setSearchDate={setSearchDate} getPaymentsList={getPaymentsList} />
          <TotalCount>
             총 <strong>{state.total_count.toLocaleString("ko-KR")}</strong>개
          </TotalCount>
@@ -29,16 +29,16 @@ const Payments = ({ history }) => {
 };
 
 // 검색창
-const SearchArea = () => {
+const SearchArea = ({ search_date: s, setSearchDate, getPaymentsList }) => {
    return (
       <SearchBox>
          <h4>주문일</h4>
          <LeftFlexDiv className="search-input-box">
-            <input type="date" />
+            <input type="date" value={s.start} max={s.max} onChange={({ target: { value } }) => setSearchDate({ column: "start", date: value })} />
             <span>-</span>
-            <input type="date" />
+            <input type="date" value={s.end} max={s.max} onChange={({ target: { value } }) => setSearchDate({ column: "end", date: value })} />
          </LeftFlexDiv>
-         <Button>검색</Button>
+         <Button onClick={getPaymentsList}>검색</Button>
       </SearchBox>
    );
 };
