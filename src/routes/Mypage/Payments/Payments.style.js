@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { LeftFlexDiv } from "../../../assets/styles/basic.style";
+import { LeftColumnFlexDiv, LeftFlexDiv } from "../../../assets/styles/basic.style";
 
 export const TotalCount = styled.div`
    margin-bottom: 20px;
@@ -40,6 +40,10 @@ export const SearchBox = styled(LeftFlexDiv)`
       border-radius: 5px;
       background: var(--main);
    }
+`;
+
+export const PaymentItemListBox = styled(LeftColumnFlexDiv)`
+   margin-bottom: 30px;
 `;
 
 export const PaymentItemBox = styled(LeftFlexDiv)`

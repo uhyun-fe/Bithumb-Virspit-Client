@@ -6,6 +6,9 @@ import { CenterColumnFlexDiv } from "../../../assets/styles/basic.style";
 
 // Components
 import NFTCard from "../../../components/NFTCard/NFTCard";
+import Pager from "../../../components/Pager/Pager";
+
+// Logics
 import LikesLogic from "./Likes.logic";
 
 const Likes = ({ history }) => {
@@ -20,6 +23,7 @@ const Likes = ({ history }) => {
                <NFTCard key={i} nft={nft} line_count={4} setLike={(id) => console.log("click like button" + id)} history={history} />
             ))}
          </ListItemBox>
+         <Pager page={1} count={12} total={200} paging={() => console.log("넘기기")} />
       </CenterColumnFlexDiv>
    );
 };

@@ -35,4 +35,5 @@ export const SearchTopBox = styled(LeftColumnFlexDiv)`
 
 export const ListItemBox = styled(LeftFlexDiv)`
    flex-wrap: wrap;
+   margin-bottom: 30px;
 `;

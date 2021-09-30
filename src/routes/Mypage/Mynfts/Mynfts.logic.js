@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import testImage from "../../../assets/images/test.jpg";
 
 const MynftsLogic = () => {
-   const [state, setState] = useState({ total_count: 12, list: [] });
+   const [state, setState] = useState({ total_count: 12, list: [], selected: null });
 
    useEffect(() => {
       getMynftsList();
@@ -30,7 +30,12 @@ const MynftsLogic = () => {
       setState({ ...state, list: testNFTList });
    }
 
-   return { state };
+   // Set Selected NFT
+   function setSeletedNft(nft) {
+      setState({ ...state, selected: nft });
+   }
+
+   return { state, setSeletedNft };
 };
 
 export default MynftsLogic;

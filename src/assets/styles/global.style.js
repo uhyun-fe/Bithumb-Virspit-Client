@@ -60,6 +60,10 @@ export default createGlobalStyle`
         text-decoration: none;
     }
 
+    div {
+        outline: none;
+    }
+
     input,
     button {
         font-family: inherit;

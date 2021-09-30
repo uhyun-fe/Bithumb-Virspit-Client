@@ -9,6 +9,7 @@ import { SearchTopBox, ListItemBox } from "./Search.style";
 
 // Components
 import NFTCard from "../../components/NFTCard/NFTCard";
+import Pager from "../../components/Pager/Pager";
 
 const Search = ({ match, history }) => {
    const { state, setResultCategory } = SearchLogic({ match, history });
@@ -33,6 +34,7 @@ const Search = ({ match, history }) => {
                <NFTCard key={i} nft={nft} line_count={4} setLike={(id) => console.log("click like button" + id)} history={history} />
             ))}
          </ListItemBox>
+         <Pager page={1} count={12} total={200} paging={() => console.log("넘기기")} />
       </SearchTopBox>
    );
 };
