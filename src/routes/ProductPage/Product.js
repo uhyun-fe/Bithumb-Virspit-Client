@@ -4,7 +4,8 @@ import React from "react";
 import ProductLogic from "./Product.logic";
 
 // Components
-import QuantityCounter from "../../components/QuantityCounter/QuantityCounter";
+import Loading from "../../components/Loading/Loading";
+// import QuantityCounter from "../../components/QuantityCounter/QuantityCounter";
 import Modal from "../../components/Modal/Modal";
 import Table from "../../components/Table/Table";
 
@@ -16,10 +17,11 @@ import { InfoBox, ImageSection, SummarySection, PaymentModal } from "./Product.s
 import pathname from "../../assets/contents/pathname";
 
 const Product = ({ match, history, is_login }) => {
-   const { product, state, setCountNumber, controlPayModal, pay } = ProductLogic({ history, is_login });
+   const { loading, product, state, controlPayModal, pay } = ProductLogic({ match, history, is_login });
    return (
       <>
          <CenterColumnFlexDiv>
+            <Loading is_loading={loading} />
             <InfoBox>
                <ImageSection>
                   <span className="image-box">
@@ -36,15 +38,18 @@ const Product = ({ match, history, is_login }) => {
                   </LeftColumnFlexDiv>
                   <LeftColumnFlexDiv>
                      <SpaceBetweenFlexDiv className="counter-box">
-                        <strong>{product.title}</strong>
-                        <QuantityCounter value={state.count} setValue={setCountNumber} />
+                        <strong>
+                           {product.startDateTime.substring(0, 16).replaceAll("-", ". ")} <span>판매시작</span>
+                        </strong>
+                        {/* <QuantityCounter value={state.count} setValue={setCountNumber} /> */}
+                        <span>남은수량 {10}개</span>
                      </SpaceBetweenFlexDiv>
                      <SpaceBetweenFlexDiv>
                         <Button className={`buy-button${is_login ? " possible" : ""}`} onClick={() => (is_login ? controlPayModal(true) : null)}>
                            구매하기
                         </Button>
                         <span className="price">
-                           <strong>{product.price * state.count}</strong> Klay
+                           <strong>{product.price}</strong> Klay
                         </span>
                      </SpaceBetweenFlexDiv>
                      {!is_login && (
@@ -60,18 +65,13 @@ const Product = ({ match, history, is_login }) => {
             </CenterFlexDiv>
          </CenterColumnFlexDiv>
          {state.pay_modal_on && (
-            <Modal
-               max_width={600}
-               title="NFT 구매하기"
-               contents={PaymentModalContents({ count: state.count, product, pay })}
-               closing={() => controlPayModal(false)}
-            />
+            <Modal max_width={600} title="NFT 구매하기" contents={PaymentModalContents({ product, pay })} closing={() => controlPayModal(false)} />
          )}
       </>
    );
 };
 
-const PaymentModalContents = ({ count, product, pay }) => {
+const PaymentModalContents = ({ product, pay }) => {
    return (
       <PaymentModal>
          <details>
@@ -114,19 +114,19 @@ const PaymentModalContents = ({ count, product, pay }) => {
             <summary>결제정보</summary>
             <Table
                contents={[
-                  {
-                     th: "수량",
-                     td: (
-                        <>
-                           <strong>{count}</strong> 개
-                        </>
-                     ),
-                  },
+                  // {
+                  //    th: "수량",
+                  //    td: (
+                  //       <>
+                  //          <strong>{count}</strong> 개
+                  //       </>
+                  //    ),
+                  // },
                   {
                      th: "총 상품가격",
                      td: (
                         <>
-                           <strong>{count * product.price}</strong> Klay
+                           <strong>{product.price}</strong> Klay
                         </>
                      ),
                   },

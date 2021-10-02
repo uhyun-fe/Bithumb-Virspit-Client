@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 
 // test
 import testImage from "../../assets/images/test.jpg";
+
+// Api
+import { productApi } from "../../utils/api";
 import { walletApi } from "../../utils/klaytnApi";
 
-const ProductLogic = ({ history, is_login }) => {
-   const [product, setProduct] = useState({ price: 0 });
+const ProductLogic = ({ match, history, is_login }) => {
+   const [loading, setLoading] = useState(false);
+   const [product, setProduct] = useState({ id: match.params.id, price: 0, startDateTime: "" });
    const [state, setState] = useState({ count: 1, pay_modal_on: false });
 
    useEffect(() => {
@@ -20,15 +24,47 @@ const ProductLogic = ({ history, is_login }) => {
          description:
             "이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.이 상품은 축구종목 박지성의 이런 상품입니다.",
       };
-      setProduct(test);
+      // setProduct(test);
+      getProductDetail();
    }, []);
 
-   // 수량 변경
-   const setCountNumber = (v) => {
-      if (!v) return;
-      if (parseInt(v) < 1 || parseInt(v) > 999) return;
-      setState({ ...state, count: parseInt(v) });
+   // 상품 상세정보 조회
+   const getProductDetail = async () => {
+      try {
+         setLoading(true);
+         const { data } = await productApi.getProductDetail({ productId: product.id });
+         console.log("상품정보", data);
+         setProduct(data);
+
+         // // // test //
+         // // const data = [
+         // //    {
+         // //       count: 0,
+         // //       createdDate: "2021-10-01T06:25:29.083Z",
+         // //       description: "string",
+         // //       exhibition: false,
+         // //       id: 1,
+         // //       name: "테스트 NFT",
+         // //       nftUri: testImage,
+         // //       price: 100,
+         // //       startDate: "2021-10-01T06:25:29.084Z",
+         // //       type: "PLAYER",
+         // //       updatedDate: "2021-10-01T06:25:29.084Z",
+         // //    },
+         // // ];
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    };
+
+   // // 수량 변경
+   // const setCountNumber = (v) => {
+   //    if (!v) return;
+   //    if (parseInt(v) < 1 || parseInt(v) > 999) return;
+   //    setState({ ...state, count: parseInt(v) });
+   // };
 
    // 결제모달 띄우기
    const controlPayModal = (bool) => {
@@ -52,7 +88,7 @@ const ProductLogic = ({ history, is_login }) => {
       }
    };
 
-   return { product, state, setCountNumber, controlPayModal, pay };
+   return { loading, product, state, controlPayModal, pay };
 };
 
 export default ProductLogic;

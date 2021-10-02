@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 
 // test
 import testImage from "../../../assets/images/test.jpg";
+import { orderApi } from "../../../utils/api";
 
 const PaymentsLogic = () => {
+   const [loading, setLoading] = useState(false);
    const [today] = useState(new Date());
    const [state, setState] = useState({
       search_date: {
@@ -20,7 +22,7 @@ const PaymentsLogic = () => {
    }, []);
 
    // 결제내역 조회
-   function getPaymentsList() {
+   async function getPaymentsList() {
       // test
       const testPaymentsList = [
          {
@@ -46,6 +48,16 @@ const PaymentsLogic = () => {
          },
       ];
       setState({ ...state, list: testPaymentsList });
+
+      try {
+         setLoading(true);
+         const { data } = await orderApi.getUserOrderList({ memberId: 1 });
+         console.log("주문 내역", data);
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    }
 
    // 검색일자 변경
@@ -73,7 +85,7 @@ const PaymentsLogic = () => {
       return `${prevYear}-${prevMonth < 10 ? "0" : ""}${prevMonth}-${prevDate < 10 ? "0" : ""}${prevDate}`;
    }
 
-   return { state, setSearchDate, getPaymentsList };
+   return { loading, state, setSearchDate, getPaymentsList };
 };
 
 export default PaymentsLogic;
