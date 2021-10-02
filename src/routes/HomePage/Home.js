@@ -5,6 +5,7 @@ import HomeLogic from "./Home.logic";
 
 // Components
 import Category from "../../components/Category/Category";
+import Loading from "../../components/Loading/Loading";
 
 // Styles
 import { AdSection, MainSection, CategoryBox, ListItemBox, ListTitleBox } from "./Home.style";
@@ -12,9 +13,10 @@ import { Button, CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 import NFTCard from "../../components/NFTCard/NFTCard";
 
 const Home = ({ match, history, is_login }) => {
-   const { state, categories, nftList, setSelectedCategoryId, setIsTeam } = HomeLogic({ match, history });
+   const { loading, state, categories, nftList, setSelectedCategoryId, setIsTeam } = HomeLogic({ match, history });
    return (
       <CenterColumnFlexDiv>
+         <Loading is_loading={loading} />
          <AdSection bgImage={"http://image.kmib.co.kr/online_image/2021/0805/2021080520080495961_1628161684_0016139942.jpg"}>
             <h3>올림픽 신화 김연경의 새로운 NFT!</h3>
             <p>김연경 도쿄올림픽 특별한정 NFT</p>
@@ -26,7 +28,7 @@ const Home = ({ match, history, is_login }) => {
             </CategoryBox>
             <CenterColumnFlexDiv>
                <ListTitleBox>
-                  <h2>{categories.length > 0 && categories.find((c) => c.id === state.category_id).title}</h2>
+                  <h2>{categories.length > 0 && categories.find((c) => c.id === state.category_id).name}</h2>
                   <div>
                      <Button className={state.is_team ? "" : "selected"} onClick={() => setIsTeam(false)}>
                         개인
