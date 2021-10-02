@@ -8,13 +8,15 @@ import { Button } from "../../assets/styles/basic.style";
 import { SearchTopBox, ListItemBox } from "./Search.style";
 
 // Components
+import Loading from "../../components/Loading/Loading";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Pager from "../../components/Pager/Pager";
 
 const Search = ({ match, history }) => {
-   const { state, setResultCategory } = SearchLogic({ match, history });
+   const { loading, state, setResultCategory } = SearchLogic({ match, history });
    return (
       <SearchTopBox>
+         <Loading is_loading={loading} />
          <h2>
             <strong>"{match.params.keyword}"</strong> 에 대한 검색결과
          </h2>

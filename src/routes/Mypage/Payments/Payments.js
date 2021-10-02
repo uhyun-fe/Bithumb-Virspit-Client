@@ -9,15 +9,18 @@ import pathname from "../../../assets/contents/pathname";
 
 // Components
 import Pager from "../../../components/Pager/Pager";
+import Loading from "../../../components/Loading/Loading";
 
 // Styles
 import { Button, CenterColumnFlexDiv, LeftColumnFlexDiv, LeftFlexDiv } from "../../../assets/styles/basic.style";
 import { TotalCount, PaymentItemListBox, PaymentItemBox, SearchBox } from "./Payments.style";
 
 const Payments = ({ history }) => {
-   const { state, setSearchDate, getPaymentsList } = PaymentsLogic({ history });
+   const { loading, state, setSearchDate, getPaymentsList } = PaymentsLogic({ history });
    return (
       <LeftColumnFlexDiv>
+         <Loading is_loading={loading} />
+
          <SearchArea search_date={state.search_date} setSearchDate={setSearchDate} getPaymentsList={getPaymentsList} />
          <TotalCount>
             총 <strong>{state.total_count.toLocaleString("ko-KR")}</strong>개

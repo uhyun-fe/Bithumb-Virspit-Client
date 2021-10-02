@@ -19,5 +19,21 @@ export const CategoryItem = styled(Button)`
       color: var(--white);
       background: var(--main);
       opacity: 1;
+      span::before {
+         filter: invert(100);
+      }
+   }
+   span {
+      display: flex;
+      align-items: center;
+      &::before {
+         content: "";
+         display: inline-block;
+         margin-right: 5px;
+         width: 15px;
+         height: 15px;
+         background: url(${(props) => props.image}) no-repeat;
+         background-size: 100% 100%;
+      }
    }
 `;

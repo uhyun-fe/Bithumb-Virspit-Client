@@ -5,18 +5,19 @@ import { CenterFlexDiv, LeftColumnFlexDiv } from "../../assets/styles/basic.styl
 
 export const InfoBox = styled.div`
    display: flex;
-   margin-bottom: 50px; ;
+   margin-bottom: 50px;
+   width: 100%;
 `;
 
 export const ImageSection = styled(CenterFlexDiv)`
    align-items: flex-start;
-   button {
+   /* button {
       margin-right: 10px;
       width: 50px;
       height: 50px;
       border-radius: 50%;
       background-color: var(--lightgray);
-   }
+   } */
    .image-box {
       position: relative;
       padding-bottom: 85%;
@@ -48,7 +49,6 @@ export const SummarySection = styled(LeftColumnFlexDiv)`
    }
    .desc {
       margin-bottom: 20px;
-      /* background: tomato; */
    }
    .counter-box {
       padding: 4%;
@@ -56,13 +56,26 @@ export const SummarySection = styled(LeftColumnFlexDiv)`
       color: var(--sixgray);
       border-radius: 10px;
       background: var(--lightgray);
-      strong {
+      > strong {
+         display: flex;
+         align-items: center;
          padding-top: 2px;
          width: 75%;
+         font-size: 1.2em;
+         span {
+            margin-left: 10px;
+            font-size: 0.8em;
+            font-weight: 500;
+         }
       }
       > div {
          width: 25%;
          min-width: 100px;
+      }
+      > span {
+         padding-top: 2px;
+         min-width: 100px;
+         font-size: 0.9em;
       }
    }
    .buy-button {

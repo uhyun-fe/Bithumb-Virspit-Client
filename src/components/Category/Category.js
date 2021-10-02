@@ -8,8 +8,13 @@ const Category = ({ categories, selected_id, selectCategory }) => {
    return (
       <CenterColumnFlexDiv>
          {categories.map((category, i) => (
-            <CategoryItem key={i} className={selected_id === category.id ? "selected" : ""} onClick={() => selectCategory(category.id)}>
-               {category.title}
+            <CategoryItem
+               key={i}
+               image={category.iconUrl}
+               className={selected_id === category.id ? "selected" : ""}
+               onClick={() => selectCategory(category.id)}
+            >
+               <span>{category.name}</span>
             </CategoryItem>
          ))}
       </CenterColumnFlexDiv>
