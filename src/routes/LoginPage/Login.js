@@ -12,11 +12,15 @@ import LoginLogic from "./Login.logic";
 // Contents
 import pathname from "../../assets/contents/pathname";
 
+// Components
+import Loading from "../../components/Loading/Loading";
+
 const Login = ({ match, history, is_login, setLogin }) => {
-   const { email, inputRef, setInfo, login } = LoginLogic({ history, is_login, setLogin });
+   const { loading, email, inputRef, setInfo, login } = LoginLogic({ history, is_login, setLogin });
 
    return (
       <LoginForm>
+         <Loading is_loading={loading} />
          <h2>
             <Link to={pathname.home}>
                <img src={logoImage} alt="virspit logo" />
@@ -34,6 +38,7 @@ const Login = ({ match, history, is_login, setLogin }) => {
             ref={inputRef.pw}
             placeholder="비밀번호를 입력하세요"
             onChange={({ target: { value } }) => setInfo({ key: "pw", value })}
+            onKeyPress={({ key }) => key === "Enter" && login()}
          />
          <LeftColumnFlexDiv>
             <CheckBoxLabel>

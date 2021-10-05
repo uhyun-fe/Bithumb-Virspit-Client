@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 // Components
 import Modal from "../../components/Modal/Modal";
+import Loading from "../../components/Loading/Loading";
 
 // Logics
 import SignupLogic from "./Signup.logic";
@@ -19,9 +20,10 @@ import pathname from "../../assets/contents/pathname";
 const TERM_ORDER = ["virspit_term", "transaction_term", "privacy_term", "marketing_term"];
 
 const Signup = ({ match, history }) => {
-   const { inputState, setInfo, signup, checkPwForm, sendEmail, isRightEmailCode, setTerms, closeModal } = SignupLogic({ history });
+   const { loading, inputState, setInfo, signup, checkPwForm, sendEmail, isRightEmailCode, setTerms, closeModal } = SignupLogic({ history });
    return (
       <>
+         <Loading is_loading={loading} />
          <SignupForm>
             <h2>
                <Link to={pathname.home}>
@@ -141,15 +143,15 @@ const GenderRadioBox = ({ onClick }) => {
          성별
          <LeftFlexDiv>
             <RadioLabel>
-               <input type="radio" name="gender" value="woman" onClick={onClick} />
+               <input type="radio" name="gender" value="FEMALE" onClick={onClick} />
                여자
             </RadioLabel>
             <RadioLabel>
-               <input type="radio" name="gender" value="man" onClick={onClick} />
+               <input type="radio" name="gender" value="MALE" onClick={onClick} />
                남자
             </RadioLabel>
             <RadioLabel>
-               <input type="radio" name="gender" value="another" onClick={onClick} />
+               <input type="radio" name="gender" value="ETC" onClick={onClick} />
                기타
             </RadioLabel>
          </LeftFlexDiv>
