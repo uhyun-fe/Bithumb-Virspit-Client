@@ -19,9 +19,9 @@ export const CategoryItem = styled(Button)`
       color: var(--white);
       background: var(--main);
       opacity: 1;
-      span::before {
+      /* span::before {
          filter: invert(100);
-      }
+      } */
    }
    span {
       display: flex;

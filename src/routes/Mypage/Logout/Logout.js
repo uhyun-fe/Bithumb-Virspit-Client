@@ -15,6 +15,7 @@ const Logout = () => {
    function logout() {
       if (!window.confirm("로그아웃하시겠습니까?")) return;
       cookie.remove(cookie_text.user_token, { path: "/" });
+      cookie.remove(cookie_text.user_refresh_token, { path: "/" });
       window.location.href = pathname.home;
    }
 

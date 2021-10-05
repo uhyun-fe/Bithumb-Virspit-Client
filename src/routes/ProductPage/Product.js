@@ -17,21 +17,23 @@ import { InfoBox, ImageSection, SummarySection, PaymentModal } from "./Product.s
 import pathname from "../../assets/contents/pathname";
 
 const Product = ({ match, history, is_login }) => {
-   const { loading, product, state, controlPayModal, pay } = ProductLogic({ match, history, is_login });
+   const { loading, product, state, controlPayModal, pay, setIconFile } = ProductLogic({ match, history, is_login });
    return (
       <>
          <CenterColumnFlexDiv>
+            {/* test */}
+            {/* <input type="file" onChange={(e) => setIconFile(e)} /> */}
             <Loading is_loading={loading} />
             <InfoBox>
                <ImageSection>
                   <span className="image-box">
-                     <img src={product.thumbnailUrl} alt={product.title} />
+                     <img src={product.nftImageUrl} alt={product.title} />
                   </span>
                </ImageSection>
                <SummarySection>
                   <LeftColumnFlexDiv>
                      <p className="category">
-                        [{product.sports}] {product.player}
+                        [{product.sportsInfo.name}] {product.teamPlayerInfo.name}
                      </p>
                      <h2>{product.title}</h2>
                      <p className="desc">{product.description}</p>
@@ -42,14 +44,19 @@ const Product = ({ match, history, is_login }) => {
                            {product.startDateTime.substring(0, 16).replaceAll("-", ". ")} <span>판매시작</span>
                         </strong>
                         {/* <QuantityCounter value={state.count} setValue={setCountNumber} /> */}
-                        <span>남은수량 {10}개</span>
+                        <span>
+                           남은수량 <strong>{product.remainedCount.toLocaleString("ko-KR")}</strong>개
+                        </span>
                      </SpaceBetweenFlexDiv>
                      <SpaceBetweenFlexDiv>
-                        <Button className={`buy-button${is_login ? " possible" : ""}`} onClick={() => (is_login ? controlPayModal(true) : null)}>
-                           구매하기
+                        <Button
+                           className={`buy-button${is_login && product.remainedCount ? " possible" : ""}`}
+                           onClick={() => (is_login && product.remainedCount ? controlPayModal(true) : null)}
+                        >
+                           {!product.remainedCount ? "품절" : "구매하기"}
                         </Button>
                         <span className="price">
-                           <strong>{product.price}</strong> Klay
+                           <strong>{product.price.toLocaleString("ko-KR")}</strong> Klay
                         </span>
                      </SpaceBetweenFlexDiv>
                      {!is_login && (
@@ -61,7 +68,7 @@ const Product = ({ match, history, is_login }) => {
                </SummarySection>
             </InfoBox>
             <CenterFlexDiv>
-               <img src={product.detailUrl} alt={product.title} />
+               <img src={product.detailImageUrl} alt={product.title} />
             </CenterFlexDiv>
          </CenterColumnFlexDiv>
          {state.pay_modal_on && (
@@ -78,9 +85,9 @@ const PaymentModalContents = ({ product, pay }) => {
             <summary>상품정보</summary>
             <Table
                contents={[
-                  { th: "상품 카테고리", td: `[${product.sports}] ${product.player}` },
+                  { th: "상품 카테고리", td: `[${product.sportsInfo.name}] ${product.teamPlayerInfo.name}` },
                   { th: "상품명", td: product.title },
-                  { th: "가격", td: product.price + " Klay" },
+                  { th: "가격", td: product.price.toLocaleString("ko-KR") + " Klay" },
                ]}
             />
          </details>

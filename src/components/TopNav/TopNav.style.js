@@ -32,7 +32,9 @@ export const Container = styled(SpaceBetweenFlexDiv)`
       }
    }
    .button-area {
-      text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       width: 170px;
       a {
          button {

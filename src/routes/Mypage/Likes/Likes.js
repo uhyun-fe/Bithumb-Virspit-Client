@@ -18,14 +18,15 @@ const Likes = ({ history }) => {
       <CenterColumnFlexDiv>
          <Loading is_loading={loading} />
          <TotalCount>
-            총 <strong>{state.total_count.toLocaleString("ko-KR")}</strong>개
+            총 <strong>{state.total.toLocaleString("ko-KR")}</strong>개
          </TotalCount>
          <ListItemBox>
             {state.list.map((nft, i) => (
                <NFTCard key={i} nft={nft} line_count={4} setLike={(id) => console.log("click like button" + id)} history={history} />
             ))}
+            {state.list.length < 1 && <span className="no-item">관심상품이 없습니다</span>}
          </ListItemBox>
-         <Pager page={1} count={12} total={200} paging={() => console.log("넘기기")} />
+         <Pager page={state.page} count={state.size} total={state.total} paging={() => console.log("넘기기")} />
       </CenterColumnFlexDiv>
    );
 };

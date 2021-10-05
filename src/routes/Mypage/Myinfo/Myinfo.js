@@ -32,9 +32,9 @@ const Myinfo = () => {
                         <input
                            type="radio"
                            name="gender"
-                           value="woman"
-                           checked={state.basic.gender === "woman"}
-                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "woman" })}
+                           value="FEMALE"
+                           checked={state.basic.gender === "FEMALE"}
+                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "FEMALE" })}
                         />
                         여자
                      </RadioLabel>
@@ -43,9 +43,9 @@ const Myinfo = () => {
                         <input
                            type="radio"
                            name="gender"
-                           value="man"
-                           checked={state.basic.gender === "man"}
-                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "man" })}
+                           value="MALE"
+                           checked={state.basic.gender === "MALE"}
+                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "MALE" })}
                         />
                         남자
                      </RadioLabel>
@@ -54,9 +54,9 @@ const Myinfo = () => {
                         <input
                            type="radio"
                            name="gender"
-                           value="another"
-                           checked={state.basic.gender === "another"}
-                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "another" })}
+                           value="ETC"
+                           checked={state.basic.gender === "ETC"}
+                           onChange={({ target: { checked } }) => checked && setBasicInfo({ key: "gender", value: "ETC" })}
                         />
                         기타
                      </RadioLabel>

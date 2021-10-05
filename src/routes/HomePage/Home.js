@@ -6,6 +6,7 @@ import HomeLogic from "./Home.logic";
 // Components
 import Category from "../../components/Category/Category";
 import Loading from "../../components/Loading/Loading";
+import Pager from "../../components/Pager/Pager";
 
 // Styles
 import { AdSection, MainSection, CategoryBox, ListItemBox, ListTitleBox } from "./Home.style";
@@ -13,7 +14,7 @@ import { Button, CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 import NFTCard from "../../components/NFTCard/NFTCard";
 
 const Home = ({ match, history, is_login }) => {
-   const { loading, state, categories, nftList, setSelectedCategoryId, setIsTeam } = HomeLogic({ match, history });
+   const { loading, state, categories, nftList, setSelectedCategoryId, setIsTeam, paging } = HomeLogic({ match, history });
    return (
       <CenterColumnFlexDiv>
          <Loading is_loading={loading} />
@@ -39,10 +40,12 @@ const Home = ({ match, history, is_login }) => {
                   </div>
                </ListTitleBox>
                <ListItemBox>
+                  {nftList.length < 1 && <span className="no-item">해당 종목에 등록된 상품이 없습니다</span>}
                   {nftList.map((nft, i) => (
                      <NFTCard key={i} nft={nft} line_count={3} setLike={(id) => console.log("click like button" + id)} history={history} />
                   ))}
                </ListItemBox>
+               <Pager page={state.page} count={state.size} total={state.total} paging={paging} />
             </CenterColumnFlexDiv>
          </MainSection>
       </CenterColumnFlexDiv>
