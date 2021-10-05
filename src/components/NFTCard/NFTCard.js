@@ -12,7 +12,7 @@ const NFTCard = ({ nft, line_count, setLike, history }) => {
          <HoverBox onClick={() => history && history.push(pathname.detail(nft.id))}>
             <strong>{nft.title}</strong>
             <p>
-               [{"?"}] {"?"}
+               [{nft.sportsInfo.name}] {nft.teamPlayerInfo.name}
             </p>
             <p>{nft.price} Klay</p>
          </HoverBox>

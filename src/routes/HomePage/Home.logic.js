@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-// test
-import testImage from "../../assets/images/test.jpg";
 // Api
-import { orderApi, productApi, sportsApi } from "../../utils/api";
+import { productApi, sportsApi } from "../../utils/api";
 
 const HomeLogic = ({ match, history }) => {
    const [loading, setLoading] = useState(false);
-   const [state, setState] = useState({ category_id: 0, is_team: false });
+   const [state, setState] = useState({ category_id: 0, is_team: false, page: 1, size: 3, total: 0 });
    const [categories, setCategories] = useState([]);
    const [nftList, setNftList] = useState([]);
 
@@ -15,19 +13,8 @@ const HomeLogic = ({ match, history }) => {
    }, []);
 
    useEffect(() => {
-      // // test
-      // const testNFTList = [
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      // ];
-      // setNftList(testNFTList);
-
-      getProductList();
-   }, [state.category_id]);
+      if (state.page) getProductList();
+   }, [state.category_id, state.page]);
 
    // 전체 종목리스트 조회
    const getAllSports = async () => {
@@ -38,21 +25,6 @@ const HomeLogic = ({ match, history }) => {
          } = await sportsApi.getSportsList({});
          setCategories([{ id: 0, name: "All" }].concat(list));
          console.log("전체종목리스트", list);
-
-         // // test //
-         // const data = [
-         //    {
-         //       iconUrl: "https://cdn-icons-png.flaticon.com/512/731/731956.png",
-         //       id: 1,
-         //       name: "배구",
-         //    },
-         //    {
-         //       iconUrl: "https://cdn-icons-png.flaticon.com/512/731/731956.png",
-         //       id: 2,
-         //       name: "축구",
-         //    },
-         // ];
-         // test end //
       } catch (err) {
          console.error(err.response);
       } finally {
@@ -64,30 +36,14 @@ const HomeLogic = ({ match, history }) => {
    const getProductList = async () => {
       try {
          setLoading(true);
-
          const {
-            data: { data: list },
-         } = await productApi.getProductList({});
+            data: {
+               data: { list, totalCount },
+            },
+         } = await productApi.getProductList({ page: state.page, size: state.size, sportsId: state.category_id || undefined });
          console.log("상품리스트", list);
-
-         // // test //
-         // const data = [
-         //    {
-         //       count: 0,
-         //       createdDate: "2021-10-01T06:25:29.083Z",
-         //       description: "string",
-         //       exhibition: false,
-         //       id: 1,
-         //       name: "테스트 NFT",
-         //       nftUri: testImage,
-         //       price: 100,
-         //       startDate: "2021-10-01T06:25:29.084Z",
-         //       type: "PLAYER",
-         //       updatedDate: "2021-10-01T06:25:29.084Z",
-         //    },
-         // ];
-
          setNftList(list);
+         setState({ ...state, total: totalCount });
       } catch (err) {
          console.error(err.response);
       } finally {
@@ -105,7 +61,12 @@ const HomeLogic = ({ match, history }) => {
       setState({ ...state, is_team: bool });
    };
 
-   return { loading, state, categories, nftList, setSelectedCategoryId, setIsTeam };
+   // set paga
+   const paging = ({ target: { value } }) => {
+      setState({ ...state, page: value });
+   };
+
+   return { loading, state, categories, nftList, setSelectedCategoryId, setIsTeam, paging };
 };
 
 export default HomeLogic;

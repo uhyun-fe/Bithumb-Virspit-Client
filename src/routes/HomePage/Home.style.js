@@ -83,4 +83,12 @@ export const ListTitleBox = styled(LeftColumnFlexDiv)`
 
 export const ListItemBox = styled(LeftFlexDiv)`
    flex-wrap: wrap;
+   margin-bottom: 30px;
+   .no-item {
+      padding: 50px 0;
+      width: 100%;
+      text-align: center;
+      color: var(--main);
+      font-size: 1.2em;
+   }
 `;
