@@ -10,7 +10,11 @@ const SearchLogic = ({ match, history }) => {
 
    useEffect(() => {
       getSearchedList();
-   }, []);
+   }, [state.page]);
+
+   useEffect(() => {
+      getSearchedList();
+   }, [match.params.keyword]);
 
    // Set Search Result Category
    const setResultCategory = ({ is_nft }) => {
@@ -19,37 +23,28 @@ const SearchLogic = ({ match, history }) => {
 
    // Get Searched List
    async function getSearchedList() {
-      console.log(match.params.keyword);
-      // test
-      // const testNFTList = [
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      // ];
-
-      // try {
-      //    setLoading(true);
-      //    const { data } = await productApi.getSearchedProductList({});
-      //    console.log("상품정보", data);
-      //    // setProduct(data);
-      // } catch (err) {
-      //    console.error(err.response);
-      // } finally {
-      //    setLoading(false);
-      // }
-      // // setState({ ...state, list: testNFTList });
+      try {
+         setLoading(true);
+         const {
+            data: {
+               data: { list, totalCount },
+            },
+         } = await productApi.getProductList({ page: state.page, size: state.size, title: match.params.keyword });
+         setState({ ...state, list, total: totalCount });
+         // console.log("상품정보", list, totalCount);
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    }
 
-   return { loading, state, setResultCategory };
+   // set page
+   const paging = ({ target: { value } }) => {
+      setState({ ...state, page: value });
+   };
+
+   return { loading, state, setResultCategory, paging };
 };
 
 export default SearchLogic;

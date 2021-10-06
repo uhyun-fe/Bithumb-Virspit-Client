@@ -45,25 +45,27 @@ const LoginLogic = ({ history, is_login, setLogin }) => {
       try {
          setLoading(true);
          const {
-            data: { data, errorCode },
+            data,
+            // : { data, errorCode },
          } = await memberApi.login({
             email: inputRef.email.current.value,
             password: inputState.pw,
          });
          setLoading(false);
-         if (errorCode) alert("이메일이나 비밀번호가 올바르지 않습니다.");
-         else {
-            // 로그인 성공 시 로컬스토리지에 이메일정보 저장
-            if (inputState.check_save_email) window.localStorage.setItem(cookie_text.user_email, inputState.email);
-            else window.localStorage.removeItem(cookie_text.user_email);
-            // 로그인 성공 시 쿠키에 토큰정보 저장
-            cookie.save(cookie_text.user_token, data.accessToken, { path: "/" });
-            cookie.save(cookie_text.user_refresh_token, data.refreshToken, { path: "/" });
-            // 로그인 성공 시 로그인상태 변경
-            setLogin(!!cookie.load(cookie_text.user_token));
-            // 홈화면으로 이동
-            history.push(pathname.home);
-         }
+         console.log(data);
+         // if (errorCode) alert("이메일이나 비밀번호가 올바르지 않습니다.");
+         // else {
+         //    // 로그인 성공 시 로컬스토리지에 이메일정보 저장
+         //    if (inputState.check_save_email) window.localStorage.setItem(cookie_text.user_email, inputState.email);
+         //    else window.localStorage.removeItem(cookie_text.user_email);
+         //    // 로그인 성공 시 쿠키에 토큰정보 저장
+         //    cookie.save(cookie_text.user_token, data.accessToken, { path: "/" });
+         //    cookie.save(cookie_text.user_refresh_token, data.refreshToken, { path: "/" });
+         //    // 로그인 성공 시 로그인상태 변경
+         //    setLogin(!!cookie.load(cookie_text.user_token));
+         //    // 홈화면으로 이동
+         //    history.push(pathname.home);
+         // }
       } catch (err) {
          console.error(err.response);
          alert("에러가 발생했습니다. 다시 시도해주세요.");

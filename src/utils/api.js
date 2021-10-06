@@ -46,9 +46,9 @@ export const advertisementApi = {
 
 // 상품 product-controller
 export const productApi = {
-   getProductList: ({ page, size, sportsId }) => productAxios.get("product", { params: { page, size, sportsId } }), // 전체 상품리스트 조회
+   getProductList: ({ page, size, sportsId, isTeam, title }) => productAxios.get("products", { params: { page, size, sportsId, isTeam, title } }), // 전체 상품리스트 조회
    getSearchedProductList: ({ word }) => listingAxios.get("products/list/search", { params: { word } }), // 상품이름 검색
-   getProductDetail: ({ productId }) => productAxios.get(`product/${productId}`), // 상품 개별 조회
+   getProductDetail: ({ productId }) => productAxios.get(`products/${productId}`), // 상품 개별 조회
 };
 
 // 주문 order-controller
@@ -89,8 +89,8 @@ export const sportsApi = {
    getSportsList: ({ page, size }) => productAxios.get("sports", { params: { page, size } }), // 전체 종목리스트 조회
    addSport: (form) => productAxios.post("sports", form), // 종목추가 추후 삭제필요
    addTeamPlayer: ({ name, description, type, revenueShareRate, sportsId }) =>
-      productAxios.post("team-player", { name, description, type, revenueShareRate, sportsId }),
+      productAxios.post("team-players", { name, description, type, revenueShareRate, sportsId }),
    updateTeamPlayer: ({ teamPlayerId, name, description, type, revenueShareRate, sportsId }) =>
-      productAxios.put(`team-player/${teamPlayerId}`, { name, description, type, revenueShareRate, sportsId }),
-   addProduct: (form) => productAxios.post("product", form),
+      productAxios.put(`team-players/${teamPlayerId}`, { name, description, type, revenueShareRate, sportsId }),
+   addProduct: (form) => productAxios.post("products", form),
 };

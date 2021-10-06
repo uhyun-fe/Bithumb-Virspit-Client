@@ -17,12 +17,10 @@ import { InfoBox, ImageSection, SummarySection, PaymentModal } from "./Product.s
 import pathname from "../../assets/contents/pathname";
 
 const Product = ({ match, history, is_login }) => {
-   const { loading, product, state, controlPayModal, pay, setIconFile } = ProductLogic({ match, history, is_login });
+   const { loading, product, state, controlPayModal, pay } = ProductLogic({ match, history, is_login });
    return (
       <>
          <CenterColumnFlexDiv>
-            {/* test */}
-            {/* <input type="file" onChange={(e) => setIconFile(e)} /> */}
             <Loading is_loading={loading} />
             <InfoBox>
                <ImageSection>
