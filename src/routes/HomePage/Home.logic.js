@@ -14,7 +14,7 @@ const HomeLogic = ({ match, history }) => {
 
    useEffect(() => {
       if (state.page) getProductList();
-   }, [state.category_id, state.page]);
+   }, [state.category_id, state.page, state.is_team]);
 
    // 전체 종목리스트 조회
    const getAllSports = async () => {
@@ -24,7 +24,6 @@ const HomeLogic = ({ match, history }) => {
             data: { data: list },
          } = await sportsApi.getSportsList({});
          setCategories([{ id: 0, name: "All" }].concat(list));
-         console.log("전체종목리스트", list);
       } catch (err) {
          console.error(err.response);
       } finally {
@@ -40,10 +39,10 @@ const HomeLogic = ({ match, history }) => {
             data: {
                data: { list, totalCount },
             },
-         } = await productApi.getProductList({ page: state.page, size: state.size, sportsId: state.category_id || undefined });
-         console.log("상품리스트", list);
+         } = await productApi.getProductList({ page: state.page, size: state.size, sportsId: state.category_id || undefined, isTeam: state.is_team });
          setNftList(list);
          setState({ ...state, total: totalCount });
+         // console.log("상품리스트", list);
       } catch (err) {
          console.error(err.response);
       } finally {
@@ -61,7 +60,7 @@ const HomeLogic = ({ match, history }) => {
       setState({ ...state, is_team: bool });
    };
 
-   // set paga
+   // set page
    const paging = ({ target: { value } }) => {
       setState({ ...state, page: value });
    };

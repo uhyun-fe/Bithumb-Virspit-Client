@@ -16,7 +16,7 @@ import pathname from "../../assets/contents/pathname";
 import Loading from "../../components/Loading/Loading";
 
 const Login = ({ match, history, is_login, setLogin }) => {
-   const { loading, email, inputRef, setInfo, login } = LoginLogic({ history, is_login, setLogin });
+   const { loading, state, inputRef, setInfo, login } = LoginLogic({ history, is_login, setLogin });
 
    return (
       <LoginForm>
@@ -29,7 +29,7 @@ const Login = ({ match, history, is_login, setLogin }) => {
          <input
             type="email"
             ref={inputRef.email}
-            defaultValue={email}
+            defaultValue={state.email}
             placeholder="이메일을 입력하세요"
             onChange={({ target: { value } }) => setInfo({ key: "email", value })}
          />
@@ -42,7 +42,11 @@ const Login = ({ match, history, is_login, setLogin }) => {
          />
          <LeftColumnFlexDiv>
             <CheckBoxLabel>
-               <input type="checkbox" onChange={({ target: { checked } }) => setInfo({ key: "check_save_email", value: checked })} />
+               <input
+                  type="checkbox"
+                  checked={state.check_save_email}
+                  onChange={({ target: { checked } }) => setInfo({ key: "check_save_email", value: checked })}
+               />
                이메일 저장
             </CheckBoxLabel>
          </LeftColumnFlexDiv>

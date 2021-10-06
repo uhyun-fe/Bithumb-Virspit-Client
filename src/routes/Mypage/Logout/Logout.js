@@ -10,13 +10,29 @@ import logo from "../../../assets/images/logo.png";
 // Styles
 import { Button, CenterColumnFlexDiv } from "../../../assets/styles/basic.style";
 
+// Api
+import { memberApi } from "../../../utils/api";
+
 const Logout = () => {
    // 로그아웃
-   function logout() {
+   async function logout() {
       if (!window.confirm("로그아웃하시겠습니까?")) return;
-      cookie.remove(cookie_text.user_token, { path: "/" });
-      cookie.remove(cookie_text.user_refresh_token, { path: "/" });
-      window.location.href = pathname.home;
+
+      try {
+         const {
+            data: { status },
+         } = await memberApi.logout({
+            accessToken: cookie.load(cookie_text.user_token),
+         });
+         if (status === 200) {
+            cookie.remove(cookie_text.user_token, { path: "/" });
+            cookie.remove(cookie_text.user_refresh_token, { path: "/" });
+            window.location.href = pathname.home;
+         }
+      } catch (err) {
+         console.error(err.response);
+         alert("에러가 발생했습니다. 다시 시도해주세요.");
+      }
    }
 
    return (

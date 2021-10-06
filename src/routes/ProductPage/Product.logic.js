@@ -24,42 +24,6 @@ const ProductLogic = ({ match, history, is_login }) => {
       getProductDetail();
    }, []);
 
-   // test 팀플레이어 추가
-   const setIconFile = async (e) => {
-      // const file = e.target.files[0];
-      // const form = new FormData();
-      // form.append("description", "상품설명 test");
-      // form.append("detailImageFile", file);
-      // form.append("exhibition", true);
-      // form.append("nftImageFile", file);
-      // form.append("price", 180);
-      // form.append("remainedCount", 50); // 최대 100개
-      // form.append("startDateTime", "2021-10-10 18:30:00");
-      // form.append("teamPlayerId", 2);
-      // form.append("title", "손흥민의 테스트 NFT");
-
-      // for (let a of form.entries()) {
-      //    console.log(a[0], a[1]);
-      // }
-
-      try {
-         setLoading(true);
-         const data = await sportsApi.updateTeamPlayer({
-            teamPlayerId: 1,
-            name: "수정된 팀/플레이어",
-            description: "수정합니다",
-            type: "TEAM",
-            revenueShareRate: 50,
-            sportsId: 1,
-         });
-         console.log("결과", data);
-      } catch (err) {
-         console.error(err.response);
-      } finally {
-         setLoading(false);
-      }
-   };
-
    // 상품 상세정보 조회
    const getProductDetail = async () => {
       try {
@@ -83,6 +47,8 @@ const ProductLogic = ({ match, history, is_login }) => {
    //    setState({ ...state, count: parseInt(v) });
    // };
 
+   /* 결제 관련 */
+
    // 결제모달 띄우기
    const controlPayModal = (bool) => {
       setState({ ...state, pay_modal_on: bool });
@@ -105,7 +71,7 @@ const ProductLogic = ({ match, history, is_login }) => {
       }
    };
 
-   return { loading, product, state, controlPayModal, pay, setIconFile };
+   return { loading, product, state, controlPayModal, pay };
 };
 
 export default ProductLogic;
