@@ -52,7 +52,7 @@ const SignupLogic = ({ history }) => {
    // Send Signup Info To Server
    const signup = async () => {
       if (!signupNullCheck()) return;
-
+      if (!window.confirm("회원가입하시겠습니까?")) return;
       const { email, name, pw, phone, birthday, gender } = inputState;
       try {
          setLoading(true);
@@ -64,6 +64,7 @@ const SignupLogic = ({ history }) => {
             gender,
             password: pw,
             birthdayDate: birthday,
+            phoneNumber: phone,
          });
          if (status === 200) {
             alert(data.memberName + "님, 회원가입이 완료되었습니다.\n로그인 후 서비스를 이용해주세요.");

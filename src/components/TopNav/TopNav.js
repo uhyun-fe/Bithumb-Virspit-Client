@@ -15,6 +15,7 @@ import likeIcon from "../../assets/icons/like.png";
 // 상단바
 const TopNav = ({ is_login, history }) => {
    const [keyword, setKeyword] = useState("");
+   const [state, setState] = useState({ focused: false });
    return (
       <Container>
          {/* 로고 */}
@@ -27,12 +28,20 @@ const TopNav = ({ is_login, history }) => {
          </h1>
 
          {/* 검색바 */}
-         <CenterFlexDiv className="search-bar">
+         <CenterFlexDiv className={`search-bar${state.focused ? " focused" : ""}`}>
             <input
                type="text"
                placeholder="검색"
+               value={keyword}
                onChange={({ target: { value } }) => setKeyword(value)}
-               onKeyPress={({ key }) => key === "Enter" && history.push(pathname.search(keyword))}
+               onKeyPress={({ key }) => {
+                  if (key === "Enter") {
+                     history.push(pathname.search(keyword));
+                     setKeyword("");
+                  }
+               }}
+               onFocus={() => setState({ ...state, focused: true })}
+               onBlur={() => setState({ ...state, focused: false })}
             />
             <Button onClick={() => history.push(pathname.search(keyword))} />
          </CenterFlexDiv>

@@ -11,10 +11,15 @@ export const Container = styled(SpaceBetweenFlexDiv)`
       width: 170px;
    }
    .search-bar {
-      padding: 10px 20px;
+      padding: 8px 20px;
       width: auto;
       border-radius: 10px;
+      border: 2px solid var(--lightgray);
       background: var(--lightgray);
+      &.focused {
+         border: 2px solid var(--main);
+         background: var(--white);
+      }
       input {
          width: 500px;
          height: 30px;
@@ -28,7 +33,7 @@ export const Container = styled(SpaceBetweenFlexDiv)`
          height: 15px;
          background-image: url(${searchIcon});
          background-size: 100% 100%;
-         background-color: none;
+         background-color: inherit;
       }
    }
    .button-area {
