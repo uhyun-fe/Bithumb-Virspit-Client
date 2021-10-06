@@ -71,8 +71,9 @@ export const likeApi = {
 export const memberApi = {
    getMemberDetail: ({ id }) => userAxios.get(`member/${id}`), // 사용자정보 조회
    login: ({ email, password }) => api.post("auth/signin", { email, password }), // 로그인
-   signup: ({ email, memberName, gender, password, birthdayDate }) =>
-      api.post("auth/register", { email, memberName, gender, password, birthdayDate }), // 회원가입
+   logout: ({ accessToken }) => api.post(`auth/signout?accessToken=${accessToken}`), // 로그아웃
+   signup: ({ email, memberName, gender, password, birthdayDate, phoneNumber }) =>
+      api.post("auth/register", { email, memberName, gender, password, birthdayDate, phoneNumber }), // 회원가입
    sendCheckEmail: ({ useremail }) => api.get("auth/verify/mail", { params: { useremail } }), // 회원가입 시 이메일 인증
    confirmEmail: ({ useremail, number }) => api.post(`auth/verify/mail?useremail=${useremail}&number=${number}`), // 회원가입 시 이메일 검증
    checkServer: () => authAxios.get("auth/check"), // 서버 체크
