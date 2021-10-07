@@ -3,12 +3,16 @@ import React from "react";
 // Styles
 import { MyinfoForm, User_Form, InputLabel, RadioLabel, Left_Flex_Div } from "./Myinfo.style.js";
 import { CenterColumnFlexDiv, Button } from "../../../assets/styles/basic.style";
+// Logics
 import MyinfoLogic from "./Myinfo.logic.js";
+// Components
+import Loading from "../../../components/Loading/Loading.js";
 
 const Myinfo = ({ history, user }) => {
-   const { state, setBasicInfo, updateBasicInfo, setPwInfo, updatePasswordInfo } = MyinfoLogic({ history, user });
+   const { loading, state, setBasicInfo, updateBasicInfo, setPwInfo, updatePasswordInfo } = MyinfoLogic({ history, user });
    return (
       <CenterColumnFlexDiv>
+         <Loading is_loading={loading} />
          <MyinfoForm>
             <h2>회원정보 수정</h2>
 

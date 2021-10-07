@@ -73,17 +73,15 @@ const MyinfoLogic = ({ history, user }) => {
 
       try {
          setLoading(true);
-         const data = await memberApi.updatePassword({ email: user.email, beforePwd: currentpw, afterPwd: newpw }); // 수정필요 (아이디값)
-         console.log(data);
-         // if (data.status === 200) {
-         //    const new_info = { ...user, ...JSON.parse(data.config.data) };
-         //    window.localStorage.setItem(cookie_text.user_info, JSON.stringify(new_info));
-         //    setLoading(false);
-         //    alert("수정되었습니다");
-         //    history.go(0);
-         // } else {
-         //    alert("에러가 발생했습니다. 다시 시도해주세요");
-         // }
+         const {
+            data: { status },
+         } = await memberApi.updatePassword({ email: user.email, beforePwd: currentpw, afterPwd: newpw });
+         if (status === 200) {
+            alert("비밀번호가 변경되었습니다");
+            history.go(0);
+         } else {
+            alert("현재 비밀번호가 올바르지 않습니다 (비밀번호 입력 오류)");
+         }
       } catch (err) {
          console.error(err.response);
          alert("에러가 발생했습니다. 다시 시도해주세요");
@@ -97,7 +95,7 @@ const MyinfoLogic = ({ history, user }) => {
       setState({ ...state, pw: { ...state.pw, [key]: value } });
    };
 
-   return { state, setBasicInfo, updateBasicInfo, setPwInfo, updatePasswordInfo };
+   return { loading, state, setBasicInfo, updateBasicInfo, setPwInfo, updatePasswordInfo };
 };
 
 export default MyinfoLogic;
