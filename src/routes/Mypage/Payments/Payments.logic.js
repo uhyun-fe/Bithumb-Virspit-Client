@@ -49,15 +49,15 @@ const PaymentsLogic = () => {
       ];
       setState({ ...state, list: testPaymentsList });
 
-      // try {
-      //    setLoading(true);
-      //    const { data } = await orderApi.getUserOrderList({ memberId: 1 });
-      //    console.log("주문 내역", data);
-      // } catch (err) {
-      //    console.error(err.response);
-      // } finally {
-      //    setLoading(false);
-      // }
+      try {
+         setLoading(true);
+         const data = await orderApi.getUserOrderList({ memberId: 3 });
+         console.log("주문 내역", data);
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    }
 
    // 검색일자 변경

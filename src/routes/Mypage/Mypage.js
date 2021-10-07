@@ -16,15 +16,15 @@ const Mypage = ({ match, history, is_login }) => {
    const { user } = MypageLogic({ history, is_login });
    return (
       <div>
-         <Menu_tab user_name={user.name} type={match.params.type} />
+         <Menu_tab user_name={user.memberName} type={match.params.type} />
          {match.params.type === types.logout ? (
-            <Logout />
+            <Logout user={user} />
          ) : match.params.type === types.payments ? (
             <Payments history={history} />
          ) : match.params.type === types.likes ? (
             <Likes history={history} />
          ) : match.params.type === types.myinfo ? (
-            <Myinfo />
+            <Myinfo user={user} history={history} />
          ) : (
             <Mynfts />
          )}

@@ -6,11 +6,11 @@ import cookie_text from "../assets/contents/cookie_text";
 
 const LISTING_END_POINT = "http://3.35.78.136:8081/";
 const ORDER_END_POINT = "http://3.35.71.218:8081/";
-const USER_END_POINT = "http://3.38.44.130:8081/";
+const USER_END_POINT = "http://3.38.42.161:8081/";
 const PRODUCT_END_POINT = "http://15.165.34.36:8081/";
 const AUTH_END_POINT = "http://3.38.44.130:8083/";
 
-const SERVER_URI = "http://3.38.44.130:8070/";
+const SERVER_URI = "http://3.37.16.78:8070/";
 
 const getAxios = (server_url) =>
    axios.create({
@@ -35,7 +35,7 @@ const api = axios.create({
       accept: "*/*", // application/json
       "Content-Type": "application/json", // multipart/form-data
       "Access-Control-Allow-Origin": "*",
-      // "X-Http-Token": cookie.load(cookie_text.user_token),
+      Authorization: "Bearer " + cookie.load(cookie_text.user_token),
    },
 });
 
@@ -62,9 +62,9 @@ export const orderApi = {
 
 // 좋아요 favorite-controller
 export const likeApi = {
-   getLikesList: ({ id }) => userAxios.get(`favorite/${id}`), // 사용자의 개별 좋아요한 상품목록
-   addLikes: ({ id, productId }) => userAxios.post(`favorite/${id}`, { params: { productId } }), // 상품 좋아요 등록
-   deleteLikes: ({ id, productId }) => userAxios.delete(`favorite/${id}`, { params: { productId } }), // 상품 좋아요 취소
+   getLikesList: ({ id }) => api.get(`favorite/${id}`), // 사용자의 개별 좋아요한 상품목록
+   addLikes: ({ id, productId }) => api.post(`auth/favorite/${id}`, { params: { productId } }), // 상품 좋아요 등록
+   deleteLikes: ({ id, productId }) => api.delete(`auth/favorite/${id}`, { params: { productId } }), // 상품 좋아요 취소
 };
 
 // 유저 member-controller
@@ -76,6 +76,10 @@ export const memberApi = {
       api.post("auth/register", { email, memberName, gender, password, birthdayDate, phoneNumber }), // 회원가입
    sendCheckEmail: ({ useremail }) => api.get("auth/verify/mail", { params: { useremail } }), // 회원가입 시 이메일 인증
    confirmEmail: ({ useremail, number }) => api.post(`auth/verify/mail?useremail=${useremail}&number=${number}`), // 회원가입 시 이메일 검증
+   updateBasicInfo: ({ id, birthdayDate, gender, memberName, phoneNumber }) =>
+      api.put(`member/info/${id}`, { birthdayDate, gender, memberName, phoneNumber }), // 회원 기본정보 수정
+   requestResetPw: ({ useremail }) => api.post(`auth/initpwd?useremail=${useremail}`), // 비밀번호 초기화 요청
+   updatePassword: ({ email, beforePwd, afterPwd }) => api.put("auth/changepwd", { email, beforePwd, afterPwd }), // 회원 비밀번호 수정
    checkServer: () => authAxios.get("auth/check"), // 서버 체크
 };
 
