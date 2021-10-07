@@ -7,7 +7,7 @@ import { CenterColumnFlexDiv } from "../../../assets/styles/basic.style";
 // Components
 import Loading from "../../../components/Loading/Loading";
 import NFTCard from "../../../components/NFTCard/NFTCard";
-import Pager from "../../../components/Pager/Pager";
+// import Pager from "../../../components/Pager/Pager";
 
 // Logics
 import LikesLogic from "./Likes.logic";
@@ -26,7 +26,7 @@ const Likes = ({ history }) => {
             ))}
             {state.list.length < 1 && <span className="no-item">관심상품이 없습니다</span>}
          </ListItemBox>
-         <Pager page={state.page} count={state.size} total={state.total} paging={() => console.log("넘기기")} />
+         {/* <Pager page={state.page} count={state.size} total={state.total} paging={() => console.log("넘기기")} /> */}
       </CenterColumnFlexDiv>
    );
 };

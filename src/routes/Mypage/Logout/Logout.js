@@ -13,20 +13,23 @@ import { Button, CenterColumnFlexDiv } from "../../../assets/styles/basic.style"
 // Api
 import { memberApi } from "../../../utils/api";
 
-const Logout = () => {
+const Logout = ({ user }) => {
    // 로그아웃
    async function logout() {
       if (!window.confirm("로그아웃하시겠습니까?")) return;
-
+      console.log("logout");
       try {
          const {
             data: { status },
+            data,
          } = await memberApi.logout({
             accessToken: cookie.load(cookie_text.user_token),
          });
+         console.log(data);
          if (status === 200) {
             cookie.remove(cookie_text.user_token, { path: "/" });
             cookie.remove(cookie_text.user_refresh_token, { path: "/" });
+            window.localStorage.removeItem(cookie_text.user_info);
             window.location.href = pathname.home;
          }
       } catch (err) {
@@ -40,8 +43,8 @@ const Logout = () => {
          <h2>
             <img src={logo} alt="virspit logo" />
          </h2>
-         <strong>{"김철수"}</strong>
-         <p>{"test@teset.com"}</p>
+         <strong>{user.memberName}</strong>
+         <p>{user.email}</p>
          <Button onClick={logout}>Logout</Button>
       </LogoutBox>
    );

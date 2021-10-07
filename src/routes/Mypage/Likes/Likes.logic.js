@@ -6,7 +6,7 @@ import { likeApi } from "../../../utils/api";
 
 const LikesLogic = ({ history }) => {
    const [loading, setLoading] = useState(false);
-   const [state, setState] = useState({ total: 0, list: [], page: 1, size: 4 });
+   const [state, setState] = useState({ total: 0, id_list: [], list: [] });
 
    useEffect(() => {
       getLikesList();
@@ -30,15 +30,16 @@ const LikesLogic = ({ history }) => {
       //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
       // ];
       // setState({ ...state, list: testNFTList });
-      // try {
-      //    setLoading(true);
-      //    const { data } = await likeApi.getLikesList({ id: 1 });
-      //    console.log("좋아요 내역", data);
-      // } catch (err) {
-      //    console.error(err.response);
-      // } finally {
-      //    setLoading(false);
-      // }
+      try {
+         setLoading(true);
+         const { data } = await likeApi.getLikesList({ id: 3 }); // 수정필요 (실제 아이디값으로)
+         console.log("좋아요 내역", data);
+         setState({ ...state, id_list: data.map((d) => d.productId) });
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    }
 
    return { loading, state };
