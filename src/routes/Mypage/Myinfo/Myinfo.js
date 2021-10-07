@@ -5,8 +5,8 @@ import { MyinfoForm, User_Form, InputLabel, RadioLabel, Left_Flex_Div } from "./
 import { CenterColumnFlexDiv, Button } from "../../../assets/styles/basic.style";
 import MyinfoLogic from "./Myinfo.logic.js";
 
-const Myinfo = () => {
-   const { state, setBasicInfo, updateBasicInfo, updatePasswordInfo } = MyinfoLogic();
+const Myinfo = ({ history, user }) => {
+   const { state, setBasicInfo, updateBasicInfo, setPwInfo, updatePasswordInfo } = MyinfoLogic({ history, user });
    return (
       <CenterColumnFlexDiv>
          <MyinfoForm>
@@ -76,15 +76,15 @@ const Myinfo = () => {
                <h3>비밀번호 수정</h3>
                <InputLabel>
                   현재 비밀번호
-                  <input></input>
+                  <input type="password" value={state.pw.currentpw} onChange={({ target: { value } }) => setPwInfo({ key: "currentpw", value })} />
                </InputLabel>
                <InputLabel>
                   신규 비밀번호
-                  <input></input>
+                  <input type="password" value={state.pw.newpw} onChange={({ target: { value } }) => setPwInfo({ key: "newpw", value })} />
                </InputLabel>
                <InputLabel>
                   신규 비밀번호 확인
-                  <input></input>
+                  <input type="password" value={state.pw.renewpw} onChange={({ target: { value } }) => setPwInfo({ key: "renewpw", value })} />
                </InputLabel>
                <Button onClick={updatePasswordInfo}>변경</Button>
             </User_Form>

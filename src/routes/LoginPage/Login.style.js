@@ -13,6 +13,13 @@ export const LoginForm = styled(CenterColumnFlexDiv)`
       margin-bottom: 30px;
       width: 300px;
    }
+   .another {
+      button {
+         color: var(--ninegray);
+         font-size: 1em;
+         background: none;
+      }
+   }
    input {
       padding: 0 20px;
       margin-bottom: 10px;
@@ -24,7 +31,7 @@ export const LoginForm = styled(CenterColumnFlexDiv)`
          background: var(--white);
       }
    }
-   button {
+   > button {
       margin: 30px 0 10px;
       height: 65px;
       color: var(--white);
@@ -64,5 +71,29 @@ export const CheckBoxLabel = styled.label`
       font-size: inherit;
       font-weight: 500;
       background: none;
+   }
+`;
+
+export const ModalContents = styled.div`
+   input {
+      padding: 0 10px;
+      margin-top: 20px;
+      width: 100%;
+      height: 45px;
+      font-size: 1em;
+      border-radius: 5px;
+      background: var(--lightgray);
+      &:focus {
+         border: 2px solid var(--main);
+         background: var(--white);
+      }
+   }
+   button {
+      margin-top: 10px;
+      width: 100%;
+      height: 40px;
+      color: var(--white);
+      border-radius: 5px;
+      background: var(--main);
    }
 `;
