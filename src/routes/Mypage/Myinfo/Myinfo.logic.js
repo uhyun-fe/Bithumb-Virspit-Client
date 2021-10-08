@@ -23,6 +23,7 @@ const MyinfoLogic = ({ history, user }) => {
    });
 
    useEffect(() => {
+      if (!user.id) return;
       getUserInfo();
    }, [user]);
 

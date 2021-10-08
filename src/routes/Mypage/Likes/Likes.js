@@ -12,8 +12,8 @@ import NFTCard from "../../../components/NFTCard/NFTCard";
 // Logics
 import LikesLogic from "./Likes.logic";
 
-const Likes = ({ history }) => {
-   const { loading, state } = LikesLogic({ history });
+const Likes = ({ user, history }) => {
+   const { loading, state } = LikesLogic({ user, history });
    return (
       <CenterColumnFlexDiv>
          <Loading is_loading={loading} />

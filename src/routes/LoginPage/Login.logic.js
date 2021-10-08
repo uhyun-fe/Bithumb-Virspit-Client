@@ -68,7 +68,6 @@ const LoginLogic = ({ history, is_login, setLogin }) => {
             // 로그인 성공 시 로그인상태 변경
             setLogin(!!cookie.load(cookie_text.user_token));
             // 홈화면으로 이동
-            // history.push(pathname.home);
             window.location.href = pwState.reset ? pathname.mypage("myinfo") : pathname.home;
          }
       } catch (err) {

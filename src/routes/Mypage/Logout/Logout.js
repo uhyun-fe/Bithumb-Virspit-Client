@@ -3,7 +3,6 @@ import styled from "styled-components";
 import cookie from "react-cookies";
 
 // Contents
-import pathname from "../../../assets/contents/pathname";
 import cookie_text from "../../../assets/contents/cookie_text";
 import logo from "../../../assets/images/logo.png";
 
@@ -12,25 +11,20 @@ import { Button, CenterColumnFlexDiv } from "../../../assets/styles/basic.style"
 
 // Api
 import { memberApi } from "../../../utils/api";
+import { signout } from "../../../utils/lib";
 
 const Logout = ({ user }) => {
    // 로그아웃
    async function logout() {
       if (!window.confirm("로그아웃하시겠습니까?")) return;
-      console.log("logout");
       try {
          const {
             data: { status },
-            data,
          } = await memberApi.logout({
             accessToken: cookie.load(cookie_text.user_token),
          });
-         console.log(data);
          if (status === 200) {
-            cookie.remove(cookie_text.user_token, { path: "/" });
-            cookie.remove(cookie_text.user_refresh_token, { path: "/" });
-            window.localStorage.removeItem(cookie_text.user_info);
-            window.location.href = pathname.home;
+            signout();
          }
       } catch (err) {
          console.error(err.response);
