@@ -1,40 +1,32 @@
 import React, { useEffect, useState } from "react";
 
-// test
-import testImage from "../../../assets/images/test.jpg";
+// Api
 import { likeApi } from "../../../utils/api";
+// Contents
+import { setNewToken } from "../../../utils/lib";
 
-const LikesLogic = ({ history }) => {
+const LikesLogic = ({ user, history }) => {
    const [loading, setLoading] = useState(false);
    const [state, setState] = useState({ total: 0, id_list: [], list: [] });
 
    useEffect(() => {
+      if (!user.id) return;
       getLikesList();
-   }, []);
+   }, [user]);
 
-   // Get Searched List
+   // 좋아요한 상품목록 조회
    async function getLikesList() {
-      // test
-      // const testNFTList = [
-      //    { id: 1, name: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      //    { id: 1, title: "테스트 NFT", imageUrl: testImage, is_liked: true },
-      // ];
-      // setState({ ...state, list: testNFTList });
       try {
          setLoading(true);
-         const { data } = await likeApi.getLikesList({ id: 3 }); // 수정필요 (실제 아이디값으로)
-         console.log("좋아요 내역", data);
-         setState({ ...state, id_list: data.map((d) => d.productId) });
+         const {
+            data: { data },
+         } = await likeApi.getLikesList({ id: user.id });
+         if (data === undefined) {
+            setNewToken();
+         } else {
+            console.log("좋아요 내역", data);
+            setState({ ...state, id_list: data.map((d) => d.productId), total: data.length });
+         }
       } catch (err) {
          console.error(err.response);
       } finally {

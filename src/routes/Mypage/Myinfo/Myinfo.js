@@ -15,7 +15,6 @@ const Myinfo = ({ history, user }) => {
          <Loading is_loading={loading} />
          <MyinfoForm>
             <h2>회원정보 수정</h2>
-
             <User_Form>
                <h3>기본정보 수정</h3>
                <InputLabel>
@@ -42,7 +41,6 @@ const Myinfo = ({ history, user }) => {
                         />
                         여자
                      </RadioLabel>
-
                      <RadioLabel>
                         <input
                            type="radio"
@@ -53,7 +51,6 @@ const Myinfo = ({ history, user }) => {
                         />
                         남자
                      </RadioLabel>
-
                      <RadioLabel>
                         <input
                            type="radio"

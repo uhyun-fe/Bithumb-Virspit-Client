@@ -12,8 +12,8 @@ import Loading from "../../components/Loading/Loading";
 import NFTCard from "../../components/NFTCard/NFTCard";
 import Pager from "../../components/Pager/Pager";
 
-const Search = ({ match, history }) => {
-   const { loading, state, setResultCategory, paging } = SearchLogic({ match, history });
+const Search = ({ match, history, is_login }) => {
+   const { loading, state, setResultCategory, pickItem, paging } = SearchLogic({ match, history, is_login });
    return (
       <SearchTopBox>
          <Loading is_loading={loading} />
@@ -33,7 +33,7 @@ const Search = ({ match, history }) => {
          </p>
          <ListItemBox>
             {state.list.map((nft, i) => (
-               <NFTCard key={i} nft={nft} line_count={4} setLike={(id) => console.log("click like button" + id)} history={history} />
+               <NFTCard key={i} nft={nft} line_count={4} setLike={(id, is_liked) => pickItem({ id, is_liked })} history={history} />
             ))}
             {state.list.length < 1 && <span className="no-item">검색에 해당하는 상품이 없습니다</span>}
          </ListItemBox>

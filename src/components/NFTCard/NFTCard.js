@@ -16,7 +16,7 @@ const NFTCard = ({ nft, line_count, setLike, history }) => {
             </p>
             <p>{nft.price} Klay</p>
          </HoverBox>
-         <Like className={nft.is_liked ? "is_like" : ""} onClick={() => setLike && setLike(nft.id)} />
+         <Like className={nft.is_liked ? "is_like" : ""} onClick={() => setLike(nft.id, nft.is_liked)} />
       </Card>
    );
 };

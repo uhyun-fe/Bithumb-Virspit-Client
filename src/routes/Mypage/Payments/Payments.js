@@ -15,8 +15,8 @@ import Loading from "../../../components/Loading/Loading";
 import { Button, CenterColumnFlexDiv, LeftColumnFlexDiv, LeftFlexDiv } from "../../../assets/styles/basic.style";
 import { TotalCount, PaymentItemListBox, PaymentItemBox, SearchBox } from "./Payments.style";
 
-const Payments = ({ history }) => {
-   const { loading, state, setSearchDate, getPaymentsList } = PaymentsLogic({ history });
+const Payments = ({ user, history }) => {
+   const { loading, state, setSearchDate, getPaymentsList } = PaymentsLogic({ user, history });
    return (
       <LeftColumnFlexDiv>
          <Loading is_loading={loading} />
