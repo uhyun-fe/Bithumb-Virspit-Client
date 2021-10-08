@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import testImage from "../../../assets/images/test.jpg";
 import { orderApi } from "../../../utils/api";
 
-const PaymentsLogic = () => {
+const PaymentsLogic = ({ user, history }) => {
    const [loading, setLoading] = useState(false);
    const [today] = useState(new Date());
    const [state, setState] = useState({
@@ -13,13 +13,16 @@ const PaymentsLogic = () => {
          end: getStandardStringDate(today, 0),
          max: getStandardStringDate(today, 0),
       },
+      page: 1,
+      size: 10,
       total_count: 3,
       list: [],
    });
 
    useEffect(() => {
+      if (!user.id) return;
       getPaymentsList();
-   }, []);
+   }, [user]);
 
    // 결제내역 조회
    async function getPaymentsList() {
@@ -51,7 +54,13 @@ const PaymentsLogic = () => {
 
       try {
          setLoading(true);
-         const data = await orderApi.getUserOrderList({ memberId: 3 });
+         const data = await orderApi.getUserOrderList({
+            memberId: user.id,
+            page: state.page,
+            size: state.size,
+            startDate: state.search_date.start,
+            endDate: state.search_date.end,
+         });
          console.log("주문 내역", data);
       } catch (err) {
          console.error(err.response);
