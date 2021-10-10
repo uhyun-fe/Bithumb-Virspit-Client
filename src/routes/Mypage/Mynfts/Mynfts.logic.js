@@ -1,33 +1,45 @@
 import React, { useEffect, useState } from "react";
+// Api
+import { orderApi } from "../../../utils/api";
+// Contents
+import { getStandardStringDate } from "../../../utils/lib";
 
-// test
-import testImage from "../../../assets/images/test.jpg";
-
-const MynftsLogic = () => {
-   const [state, setState] = useState({ total_count: 12, list: [], selected: null });
+const MynftsLogic = ({ user }) => {
+   const [loading, setLoading] = useState(false);
+   const [today] = useState(new Date());
+   const [state, setState] = useState({
+      today: getStandardStringDate(today, 0),
+      page: 1,
+      size: 10,
+      total_count: 0,
+      list: [],
+      selected: null,
+   });
 
    useEffect(() => {
-      getMynftsList();
-   }, []);
+      if (user.id) getMynftsList();
+   }, [user]);
 
    // Get Searched List
-   function getMynftsList() {
-      // test
-      const testNFTList = [
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-         { id: 1, title: "테스트 NFT", imageUrl: testImage },
-      ];
-      setState({ ...state, list: testNFTList });
+   async function getMynftsList() {
+      try {
+         setLoading(true);
+         const {
+            data: { data: list },
+         } = await orderApi.getUserOrderList({
+            memberId: user.id,
+            page: state.page,
+            size: state.size,
+            startDate: "2020-01-01",
+            endDate: state.today,
+         });
+         console.log("주문 내역", list);
+         setState({ ...state, list, total_count: list.length });
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
    }
 
    // Set Selected NFT
@@ -35,7 +47,7 @@ const MynftsLogic = () => {
       setState({ ...state, selected: nft });
    }
 
-   return { state, setSeletedNft };
+   return { loading, state, setSeletedNft };
 };
 
 export default MynftsLogic;

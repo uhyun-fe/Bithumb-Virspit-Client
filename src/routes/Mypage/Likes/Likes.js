@@ -7,13 +7,12 @@ import { CenterColumnFlexDiv } from "../../../assets/styles/basic.style";
 // Components
 import Loading from "../../../components/Loading/Loading";
 import NFTCard from "../../../components/NFTCard/NFTCard";
-// import Pager from "../../../components/Pager/Pager";
 
 // Logics
 import LikesLogic from "./Likes.logic";
 
 const Likes = ({ user, history }) => {
-   const { loading, state } = LikesLogic({ user, history });
+   const { loading, state, pickItem } = LikesLogic({ user, history });
    return (
       <CenterColumnFlexDiv>
          <Loading is_loading={loading} />
@@ -22,11 +21,10 @@ const Likes = ({ user, history }) => {
          </TotalCount>
          <ListItemBox>
             {state.list.map((nft, i) => (
-               <NFTCard key={i} nft={nft} line_count={4} setLike={(id) => console.log("click like button" + id)} history={history} />
+               <NFTCard key={i} nft={nft} line_count={4} setLike={(id, is_liked) => pickItem({ id, is_liked })} history={history} />
             ))}
             {state.list.length < 1 && <span className="no-item">관심상품이 없습니다</span>}
          </ListItemBox>
-         {/* <Pager page={state.page} count={state.size} total={state.total} paging={() => console.log("넘기기")} /> */}
       </CenterColumnFlexDiv>
    );
 };

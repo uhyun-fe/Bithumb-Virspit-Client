@@ -131,3 +131,22 @@ export const PaymentModal = styled.div`
       background: var(--main);
    }
 `;
+
+export const DoneModal = styled.div`
+   text-align: center;
+   p {
+      margin: 20px 0;
+   }
+   button {
+      margin: 0 5px;
+      padding: 11px 15px 9px;
+      color: var(--white);
+      font-size: 1em;
+      border-radius: 5px;
+      background: var(--main);
+      &:first-child {
+         color: var(--sixgray);
+         background: var(--middlegray);
+      }
+   }
+`;

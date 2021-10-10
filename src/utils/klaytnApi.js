@@ -8,7 +8,7 @@ const basic_config = {
    "Content-type": "application/json",
 };
 
-export const walletApi = {
+export const klaytnWalletApi = {
    // 기본계정생성
    createAccount: (authorization) => axios({ method: "post", url: ACCOUNT_BASIC_URL, headers: { ...basic_config, Authorization: authorization } }),
    // 계정목록조회

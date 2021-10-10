@@ -37,7 +37,7 @@ const Search = ({ match, history, is_login }) => {
             ))}
             {state.list.length < 1 && <span className="no-item">검색에 해당하는 상품이 없습니다</span>}
          </ListItemBox>
-         <Pager page={state.page} count={state.size} total={state.total} paging={paging} />
+         {/* <Pager page={state.page} count={state.size} total={state.total} paging={paging} /> */}
       </SearchTopBox>
    );
 };

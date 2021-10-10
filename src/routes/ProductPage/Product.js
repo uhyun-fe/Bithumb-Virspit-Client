@@ -11,13 +11,13 @@ import Table from "../../components/Table/Table";
 
 // Styles
 import { Button, CenterColumnFlexDiv, CenterFlexDiv, SpaceBetweenFlexDiv, LeftColumnFlexDiv } from "../../assets/styles/basic.style";
-import { InfoBox, ImageSection, SummarySection, PaymentModal } from "./Product.style";
+import { InfoBox, ImageSection, SummarySection, PaymentModal, DoneModal } from "./Product.style";
 
 // Contents
 import pathname from "../../assets/contents/pathname";
 
 const Product = ({ match, history, is_login }) => {
-   const { loading, product, state, controlPayModal, pay } = ProductLogic({ match, history, is_login });
+   const { loading, product, state, controlPayModal, controlDoneModal, pay } = ProductLogic({ match, history, is_login });
    return (
       <>
          <CenterColumnFlexDiv>
@@ -70,16 +70,30 @@ const Product = ({ match, history, is_login }) => {
             </CenterFlexDiv>
          </CenterColumnFlexDiv>
          {state.pay_modal_on && (
-            <Modal max_width={600} title="NFT 구매하기" contents={PaymentModalContents({ product, pay })} closing={() => controlPayModal(false)} />
+            <Modal
+               max_width={600}
+               title="NFT 구매하기"
+               contents={PaymentModalContents({ product, wallet: state.wallet, user: state.user, pay })}
+               closing={() => controlPayModal(false)}
+            />
+         )}
+         {state.done_modal_on && (
+            <Modal
+               max_width={400}
+               title="결제완료"
+               contents={DoneModalContents({ history, controlDoneModal })}
+               closing={() => controlDoneModal(false)}
+            />
          )}
       </>
    );
 };
 
-const PaymentModalContents = ({ product, pay }) => {
+// 결제정보 모달창
+const PaymentModalContents = ({ product, wallet, user, pay }) => {
    return (
       <PaymentModal>
-         <details>
+         <details open>
             <summary>상품정보</summary>
             <Table
                contents={[
@@ -93,9 +107,9 @@ const PaymentModalContents = ({ product, pay }) => {
             <summary>구매자정보</summary>
             <Table
                contents={[
-                  { th: "이름", td: "최유현" },
-                  { th: "이메일", td: "test@test.com" },
-                  { th: "연락처", td: "010-1111-2222" },
+                  { th: "이름", td: user.memberName },
+                  { th: "이메일", td: user.email },
+                  { th: "연락처", td: user.phoneNumber },
                ]}
             />
          </details>
@@ -103,12 +117,12 @@ const PaymentModalContents = ({ product, pay }) => {
             <summary>지갑정보</summary>
             <Table
                contents={[
-                  { th: "지갑주소", td: "test_wallet_address" },
+                  { th: "지갑주소", td: wallet.address },
                   {
                      th: "잔액",
                      td: (
                         <>
-                           <strong>{"123"}</strong> Klay
+                           <strong>{wallet.balance}</strong> Klay
                         </>
                      ),
                   },
@@ -119,14 +133,6 @@ const PaymentModalContents = ({ product, pay }) => {
             <summary>결제정보</summary>
             <Table
                contents={[
-                  // {
-                  //    th: "수량",
-                  //    td: (
-                  //       <>
-                  //          <strong>{count}</strong> 개
-                  //       </>
-                  //    ),
-                  // },
                   {
                      th: "총 상품가격",
                      td: (
@@ -140,6 +146,19 @@ const PaymentModalContents = ({ product, pay }) => {
          </details>
          <Button onClick={pay}>결제하기</Button>
       </PaymentModal>
+   );
+};
+
+// 결제완료 모달창
+const DoneModalContents = ({ history, controlDoneModal }) => {
+   return (
+      <DoneModal>
+         <p>NFT상품 결제가 완료되었습니다.</p>
+         <div>
+            <Button onClick={() => controlDoneModal(false)}>쇼핑 계속하기</Button>
+            <Button onClick={() => history.push(pathname.mypage("payments"))}>결제내역 확인하기</Button>
+         </div>
+      </DoneModal>
    );
 };
 

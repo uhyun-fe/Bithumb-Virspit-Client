@@ -12,6 +12,7 @@ import Pager from "../../components/Pager/Pager";
 import { AdSection, MainSection, CategoryBox, ListItemBox, ListTitleBox } from "./Home.style";
 import { Button, CenterColumnFlexDiv } from "../../assets/styles/basic.style";
 import NFTCard from "../../components/NFTCard/NFTCard";
+import pathname from "../../assets/contents/pathname";
 
 const Home = ({ match, history, is_login }) => {
    const { loading, state, adver, categories, nftList, setSelectedCategoryId, setIsTeam, pickItem, paging } = HomeLogic({ match, history, is_login });
@@ -19,10 +20,10 @@ const Home = ({ match, history, is_login }) => {
       <CenterColumnFlexDiv>
          <Loading is_loading={loading} />
          {adver.length > 0 && (
-            <AdSection bgImage={"http://image.kmib.co.kr/online_image/2021/0805/2021080520080495961_1628161684_0016139942.jpg"}>
-               <h3>올림픽 신화 김연경의 새로운 NFT!</h3>
-               <p>김연경 도쿄올림픽 특별한정 NFT</p>
-               <Button>More</Button>
+            <AdSection bgImage={adver[0].product.nftImageUrl}>
+               <h3>{adver[0].description}</h3>
+               <p>{adver[0].product.title}</p>
+               <Button onClick={() => history.push(pathname.detail(adver[0].product.id))}>More</Button>
             </AdSection>
          )}
          <MainSection>

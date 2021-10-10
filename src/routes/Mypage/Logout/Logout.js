@@ -5,6 +5,7 @@ import cookie from "react-cookies";
 // Contents
 import cookie_text from "../../../assets/contents/cookie_text";
 import logo from "../../../assets/images/logo.png";
+import pathname from "../../../assets/contents/pathname";
 
 // Styles
 import { Button, CenterColumnFlexDiv } from "../../../assets/styles/basic.style";
@@ -24,7 +25,7 @@ const Logout = ({ user }) => {
             accessToken: cookie.load(cookie_text.user_token),
          });
          if (status === 200) {
-            signout();
+            signout(pathname.home);
          }
       } catch (err) {
          console.error(err.response);
