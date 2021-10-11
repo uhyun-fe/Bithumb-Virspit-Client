@@ -39,15 +39,11 @@ const SearchLogic = ({ match, history, is_login }) => {
    async function getSearchedList() {
       try {
          setLoading(true);
-         const {
-            data: {
-               data: { list, totalCount },
-            },
-         } = await productApi.getProductList({ page: state.page, size: state.size, title: match.params.keyword });
+         const { data: list } = await productApi.searchProductList({ word: match.params.keyword });
          setState({
             ...state,
             list: list.map((item) => ({ ...item, is_liked: state.liked_list.length > 0 ? state.liked_list.indexOf(item.id) >= 0 : false })),
-            total: totalCount,
+            total: list.length,
          });
          console.log("상품리스트", list);
       } catch (err) {
@@ -65,7 +61,7 @@ const SearchLogic = ({ match, history, is_login }) => {
             data: { data },
          } = await likeApi.getLikesList({ id: state.user.id });
          if (data === undefined) {
-            setNewToken();
+            setNewToken({ setLoading });
          } else {
             setState({
                ...state,
@@ -99,7 +95,7 @@ const SearchLogic = ({ match, history, is_login }) => {
                   list: state.list.map((nft) => (nft.id === id ? { ...nft, is_liked: !is_liked } : nft)),
                });
             } else {
-               setNewToken();
+               setNewToken({ setLoading });
             }
          } else {
             // 좋아요 해제
@@ -113,7 +109,7 @@ const SearchLogic = ({ match, history, is_login }) => {
                   list: state.list.map((nft) => (nft.id === id ? { ...nft, is_liked: !is_liked } : nft)),
                });
             } else {
-               setNewToken();
+               setNewToken({ setLoading });
             }
          }
       } catch (err) {

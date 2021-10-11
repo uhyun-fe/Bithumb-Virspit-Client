@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-
+// COntents
+import cookie_text from "../../assets/contents/cookie_text";
 // Api
-import { productApi, sportsApi } from "../../utils/api";
-import { walletApi } from "../../utils/klaytnApi";
+import { orderApi, productApi, sportsApi, walletApi } from "../../utils/api";
+import { klaytnWalletApi } from "../../utils/klaytnApi";
 
 const ProductLogic = ({ match, history, is_login }) => {
    const [loading, setLoading] = useState(false);
@@ -18,11 +19,25 @@ const ProductLogic = ({ match, history, is_login }) => {
       sportsInfo: { id: null, name: null },
       teamPlayerInfo: { id: null, name: null },
    });
-   const [state, setState] = useState({ count: 1, pay_modal_on: false });
+   const [state, setState] = useState({
+      count: 1,
+      pay_modal_on: false,
+      done_modal_on: false,
+      user: { memberName: null, email: null, phoneNumber: null },
+      wallet: {
+         address: null,
+         balance: 0,
+      },
+   });
 
    useEffect(() => {
+      setState({ ...state, user: JSON.parse(localStorage.getItem(cookie_text.user_info)) || state.user });
       getProductDetail();
    }, []);
+
+   useEffect(() => {
+      if (state.user.id) getWallet();
+   }, [state.user]);
 
    // 상품 상세정보 조회
    const getProductDetail = async () => {
@@ -54,24 +69,57 @@ const ProductLogic = ({ match, history, is_login }) => {
       setState({ ...state, pay_modal_on: bool });
    };
 
+   // 결제모달 띄우기
+   const controlDoneModal = (bool) => {
+      setState({ ...state, done_modal_on: bool, pay_modal_on: bool });
+   };
+
    // 결제하기
-   const pay = () => {
-      alert("결제 구현중입니다.");
+   const pay = async () => {
+      try {
+         setLoading(true);
+         const {
+            data: { status },
+            data,
+         } = await orderApi.orderProduct({ memberId: state.user.id, productId: product.id });
+         console.log("결제정보", data);
+         if (status === 200) {
+            // 결제성공 (쇼핑 계속하기 / 장바구니 확인하기) // 수정필요
+         }
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
       setState({ ...state, pay_modal_on: false });
    };
 
-   // test 지갑정보 조회
-   const testWallet = async () => {
+   /* 클레이 조회 관련 */
+
+   // 지갑정보 조회
+   const getWallet = async () => {
       try {
-         const data = await walletApi.getBalanceOfAccount(process.env.REACT_APP_TEST_AUTHORIZATION, process.env.REACT_APP_TEST_ADDRESS);
-         console.log(data);
-         console.log(data.data.result, parseFloat(data.data.result / 10 ** 18));
+         setLoading(true);
+         const { data } = await walletApi.getWalletInfo({ id: state.user.id });
+         getKlayBalance({ address: data });
+      } catch (err) {
+         console.error(err.response);
+      } finally {
+         setLoading(false);
+      }
+   };
+
+   // 클레이 잔액 조회
+   const getKlayBalance = async ({ address }) => {
+      try {
+         const data = await klaytnWalletApi.getBalanceOfAccount(process.env.REACT_APP_TEST_AUTHORIZATION, address);
+         setState({ ...state, wallet: { address, balance: parseFloat(data.data.result / 10 ** 18) } });
       } catch (e) {
          console.log(e.response);
       }
    };
 
-   return { loading, product, state, controlPayModal, pay };
+   return { loading, product, state, controlPayModal, controlDoneModal, pay };
 };
 
 export default ProductLogic;

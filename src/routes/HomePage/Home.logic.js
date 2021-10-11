@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import cookie_text from "../../assets/contents/cookie_text";
 import { setNewToken } from "../../utils/lib";
 // Api
-import { advertisementApi, likeApi, productApi, sportsApi, walletApi } from "../../utils/api";
+import { advertisementApi, likeApi, productApi, sportsApi } from "../../utils/api";
 
 const HomeLogic = ({ match, history, is_login }) => {
    const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ const HomeLogic = ({ match, history, is_login }) => {
       category_id: 0,
       is_team: false,
       page: 1,
-      size: 3,
+      size: 6,
       total: 0,
       user: JSON.parse(localStorage.getItem(cookie_text.user_info)),
       liked_list: [],
@@ -40,10 +40,11 @@ const HomeLogic = ({ match, history, is_login }) => {
       try {
          setLoading(true);
          const { data } = await advertisementApi.getAdvertisementList({ page: 1, size: 10 });
-         // console.log("광고목록", data);
+         console.log("광고목록", data);
          setAdver(data);
       } catch (err) {
          console.error(err.response);
+         if (err.response.status) alert(err.response.status + "에러가 발생했습니다. 다시 시도해주세요.");
       } finally {
          setLoading(false);
       }
@@ -55,10 +56,17 @@ const HomeLogic = ({ match, history, is_login }) => {
          setLoading(true);
          const {
             data: { data: list },
-         } = await sportsApi.getSportsList({ page: 1, size: 100 });
-         setCategories([{ id: 0, name: "All" }].concat(list));
+            data,
+         } = await sportsApi.getSportsList();
+         console.log("종목목록", list);
+         if (!list) {
+            alert(data);
+         } else {
+            setCategories([{ id: 0, name: "All" }].concat(list));
+         }
       } catch (err) {
          console.error(err.response);
+         if (err.response.status) alert(err.response.status + "에러가 발생했습니다. 다시 시도해주세요.");
       } finally {
          setLoading(false);
       }
@@ -69,19 +77,23 @@ const HomeLogic = ({ match, history, is_login }) => {
       try {
          setLoading(true);
          const {
-            data: {
-               data: { list, totalCount },
-            },
-         } = await productApi.getProductList({ page: state.page, size: state.size, sportsId: state.category_id || undefined, isTeam: state.is_team });
+            data: { content: list, totalElements: total },
+         } = await productApi.getProductList({
+            page: state.page,
+            size: state.size,
+            sportsId: state.category_id || undefined,
+            teamPlayerType: state.is_team ? "TEAM" : "PLAYER",
+         });
          if (state.liked_list.length > 0) {
             setNftList(list.map((item) => ({ ...item, is_liked: state.liked_list.indexOf(item.id) >= 0 })));
          } else {
             setNftList(list.map((item) => ({ ...item, is_liked: false })));
          }
-         setState({ ...state, total: totalCount });
+         setState({ ...state, total });
          console.log("상품리스트", list);
       } catch (err) {
          console.error(err.response);
+         if (err.response.status) alert(err.response.status + "에러가 발생했습니다. 다시 시도해주세요.");
       } finally {
          setLoading(false);
       }
@@ -94,9 +106,9 @@ const HomeLogic = ({ match, history, is_login }) => {
          const {
             data: { data },
          } = await likeApi.getLikesList({ id: state.user ? state.user.id : 0 });
-         // console.log(data);
+         console.log("좋아요한 상품목록 조회", data);
          if (data === undefined) {
-            setNewToken();
+            setNewToken({ setLoading });
          } else {
             setState({
                ...state,
@@ -116,7 +128,6 @@ const HomeLogic = ({ match, history, is_login }) => {
       if (!is_login) return alert("관심상품 등록은 로그인 후 사용할 수 있습니다.");
       try {
          setLoading(true);
-         let success = 0;
          if (!is_liked) {
             // 좋아요
             const {
@@ -127,7 +138,7 @@ const HomeLogic = ({ match, history, is_login }) => {
                setState({ ...state, liked_list: state.liked_list.concat(id) });
                setNftList(nftList.map((nft) => (nft.id === id ? { ...nft, is_liked: !is_liked } : nft)));
             } else {
-               setNewToken();
+               setNewToken({ setLoading });
             }
          } else {
             // 좋아요 해제
@@ -138,7 +149,7 @@ const HomeLogic = ({ match, history, is_login }) => {
                setState({ ...state, liked_list: state.liked_list.filter((item) => item !== id) });
                setNftList(nftList.map((nft) => (nft.id === id ? { ...nft, is_liked: !is_liked } : nft)));
             } else {
-               setNewToken();
+               setNewToken({ setLoading });
             }
          }
       } catch (err) {

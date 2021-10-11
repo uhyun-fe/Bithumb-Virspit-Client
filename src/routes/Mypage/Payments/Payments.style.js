@@ -106,3 +106,24 @@ export const PaymentItemBox = styled(LeftFlexDiv)`
       }
    }
 `;
+
+export const PaymentModal = styled.div`
+   details {
+      margin-bottom: 20px;
+      summary {
+         margin-bottom: 5px;
+         font-size: 1.2em;
+         font-weight: 700;
+         cursor: pointer;
+      }
+      > div {
+         font-size: 0.9em;
+      }
+   }
+   button {
+      width: 100%;
+      height: 45px;
+      color: var(--white);
+      background: var(--main);
+   }
+`;
