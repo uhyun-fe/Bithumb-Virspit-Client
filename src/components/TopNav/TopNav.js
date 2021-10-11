@@ -43,7 +43,7 @@ const TopNav = ({ is_login, history }) => {
                onFocus={() => setState({ ...state, focused: true })}
                onBlur={() => setState({ ...state, focused: false })}
             />
-            <Button onClick={() => history.push(pathname.search(keyword))} />
+            <Button onClick={() => keyword && history.push(pathname.search(keyword))} />
          </CenterFlexDiv>
 
          {/* 버튼 영역 */}

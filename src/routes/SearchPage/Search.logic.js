@@ -45,7 +45,6 @@ const SearchLogic = ({ match, history, is_login }) => {
             list: list.map((item) => ({ ...item, is_liked: state.liked_list.length > 0 ? state.liked_list.indexOf(item.id) >= 0 : false })),
             total: list.length,
          });
-         console.log("상품리스트", list);
       } catch (err) {
          console.error(err.response);
       } finally {

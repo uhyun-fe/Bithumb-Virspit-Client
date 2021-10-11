@@ -26,6 +26,7 @@ const Mynfts = ({ user }) => {
                      <img src={nft.product.nftImageUrl} alt={nft.product.title} />
                   </MyCard>
                ))}
+               {state.total_count < 1 && <span className="no-item">보유중인 NFT가 없습니다</span>}
             </ListItemBox>
             {state.selected && (
                <Modal

@@ -41,7 +41,6 @@ const PaymentsLogic = ({ user, history }) => {
          });
          if (!list) setNewToken({ setLoading });
          else setState({ ...state, list, total_count: list.length });
-         console.log("주문 내역", list);
       } catch (err) {
          console.error(err.response);
       } finally {

@@ -2,7 +2,7 @@
 
 2021 빗썸테크아카데미 ViRSPiT 프로젝트 사용자 클라이언트 코드입니다.
 
-https://virspit.netlify.app
+http://virspit-user.s3-website.ap-northeast-2.amazonaws.com
 
 ## 실행
 
