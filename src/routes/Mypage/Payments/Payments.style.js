@@ -44,6 +44,13 @@ export const SearchBox = styled(LeftFlexDiv)`
 
 export const PaymentItemListBox = styled(LeftColumnFlexDiv)`
    margin-bottom: 30px;
+   .no-item {
+      display: block;
+      padding: 100px 0;
+      width: 100%;
+      text-align: center;
+      color: var(--main);
+   }
 `;
 
 export const PaymentItemBox = styled(LeftFlexDiv)`

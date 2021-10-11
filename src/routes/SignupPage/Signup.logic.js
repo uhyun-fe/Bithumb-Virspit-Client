@@ -84,18 +84,23 @@ const SignupLogic = ({ history }) => {
    // Send Email For Certification
    const sendEmail = async () => {
       if (!inputState.email) return;
-      alert("해당 이메일로 인증코드를 전송했습니다");
-      setInputState({ ...inputState, email_code: "" });
 
       try {
+         setLoading(true);
          const {
             data: { status },
          } = await memberApi.sendCheckEmail({ useremail: inputState.email });
          if (status !== 200) {
             alert("에러가 발생했습니다. 다시 시도해주세요.");
+         } else {
+            alert("해당 이메일로 인증코드를 전송했습니다");
+            setInputState({ ...inputState, email_code: "" });
          }
       } catch (err) {
          console.error(err.response);
+         if (err.response) alert(err.response.data.message);
+      } finally {
+         setLoading(false);
       }
    };
 

@@ -10,6 +10,13 @@ export const TotalCount = styled.div`
 
 export const ListItemBox = styled(LeftFlexDiv)`
    flex-wrap: wrap;
+   .no-item {
+      display: block;
+      padding: 100px 0;
+      width: 100%;
+      text-align: center;
+      color: var(--main);
+   }
 `;
 
 export const MyCard = styled(CenterFlexDiv)`

@@ -33,7 +33,6 @@ const MynftsLogic = ({ user }) => {
             startDate: "2020-01-01",
             endDate: state.today,
          });
-         console.log("주문 내역", list);
          setState({ ...state, list, total_count: list.length });
       } catch (err) {
          console.error(err.response);

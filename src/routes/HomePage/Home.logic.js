@@ -40,7 +40,6 @@ const HomeLogic = ({ match, history, is_login }) => {
       try {
          setLoading(true);
          const { data } = await advertisementApi.getAdvertisementList({ page: 1, size: 10 });
-         console.log("광고목록", data);
          setAdver(data);
       } catch (err) {
          console.error(err.response);
@@ -58,7 +57,6 @@ const HomeLogic = ({ match, history, is_login }) => {
             data: { data: list },
             data,
          } = await sportsApi.getSportsList();
-         console.log("종목목록", list);
          if (!list) {
             alert(data);
          } else {
@@ -90,7 +88,6 @@ const HomeLogic = ({ match, history, is_login }) => {
             setNftList(list.map((item) => ({ ...item, is_liked: false })));
          }
          setState({ ...state, total });
-         console.log("상품리스트", list);
       } catch (err) {
          console.error(err.response);
          if (err.response.status) alert(err.response.status + "에러가 발생했습니다. 다시 시도해주세요.");
@@ -106,7 +103,6 @@ const HomeLogic = ({ match, history, is_login }) => {
          const {
             data: { data },
          } = await likeApi.getLikesList({ id: state.user ? state.user.id : 0 });
-         console.log("좋아요한 상품목록 조회", data);
          if (data === undefined) {
             setNewToken({ setLoading });
          } else {

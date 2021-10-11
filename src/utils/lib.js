@@ -58,7 +58,6 @@ export const setNewToken = async ({ setLoading }) => {
             accessToken,
             refreshToken,
          });
-         console.log("리프레시 결과", data);
          if (status === 200) {
             cookie.save(cookie_text.user_token, data.accessToken, { path: "/" });
             window.location.reload();

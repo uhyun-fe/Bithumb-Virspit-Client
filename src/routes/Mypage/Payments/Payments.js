@@ -31,6 +31,7 @@ const Payments = ({ user, history }) => {
                {state.list.map((item, i) => (
                   <PaymentItem key={i} item={item} selectePayment={selectePayment} />
                ))}
+               {state.total_count < 1 && <span className="no-item">해당 주문일에 대한 결제내역이 없습니다</span>}
             </PaymentItemListBox>
             {/* <Pager page={1} count={12} total={200} paging={() => console.log("넘기기")} /> */}
          </LeftColumnFlexDiv>
@@ -91,7 +92,7 @@ const PaymentItem = ({ item, selectePayment }) => {
 const PaymentModalContents = ({ product }) => {
    return (
       <PaymentModal>
-         <details>
+         <details open>
             <summary>상품정보</summary>
             <Table
                contents={[

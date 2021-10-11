@@ -46,7 +46,6 @@ const ProductLogic = ({ match, history, is_login }) => {
          const {
             data: { data },
          } = await productApi.getProductDetail({ productId: product.id });
-         console.log("상품정보", data);
          setProduct(data);
       } catch (err) {
          console.error(err.response);
@@ -76,22 +75,24 @@ const ProductLogic = ({ match, history, is_login }) => {
 
    // 결제하기
    const pay = async () => {
+      if (!window.confirm("결제하시겠습니까?")) return;
       try {
          setLoading(true);
          const {
             data: { status },
             data,
          } = await orderApi.orderProduct({ memberId: state.user.id, productId: product.id });
-         console.log("결제정보", data);
          if (status === 200) {
-            // 결제성공 (쇼핑 계속하기 / 장바구니 확인하기) // 수정필요
+            controlDoneModal(true);
+         } else {
+            alert("에러가 발생했습니다. 다시 시도해주세요.");
          }
       } catch (err) {
          console.error(err.response);
+         if (err.response) alert(err.response.data.message);
       } finally {
          setLoading(false);
       }
-      setState({ ...state, pay_modal_on: false });
    };
 
    /* 클레이 조회 관련 */
