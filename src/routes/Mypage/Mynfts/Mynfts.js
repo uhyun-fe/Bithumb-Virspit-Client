@@ -23,15 +23,15 @@ const Mynfts = ({ user }) => {
             <ListItemBox>
                {state.list.map((nft, i) => (
                   <MyCard key={i} line_count={4} onClick={() => setSeletedNft(nft)}>
-                     <img src={nft.nftImageUrl} alt={nft.title} />
+                     <img src={nft.product.nftImageUrl} alt={nft.product.title} />
                   </MyCard>
                ))}
             </ListItemBox>
             {state.selected && (
                <Modal
                   max_width={1024}
-                  title={state.selected.title}
-                  contents={<img src={state.selected.nftImageUrl} />}
+                  title={state.selected.product.itle}
+                  contents={<img src={state.selected.product.nftImageUrl} />}
                   closing={() => setSeletedNft(null)}
                />
             )}

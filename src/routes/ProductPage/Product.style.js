@@ -129,6 +129,10 @@ export const PaymentModal = styled.div`
       height: 45px;
       color: var(--white);
       background: var(--main);
+      &.no-balance {
+         color: var(--sixgray);
+         background: var(--middlegray);
+      }
    }
 `;
 

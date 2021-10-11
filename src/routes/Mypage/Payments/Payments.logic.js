@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // test
 import testImage from "../../../assets/images/test.jpg";
 import { orderApi } from "../../../utils/api";
-import { getStandardStringDate } from "../../../utils/lib";
+import { getStandardStringDate, setNewToken } from "../../../utils/lib";
 
 const PaymentsLogic = ({ user, history }) => {
    const [loading, setLoading] = useState(false);
@@ -39,8 +39,9 @@ const PaymentsLogic = ({ user, history }) => {
             startDate: state.search_date.start,
             endDate: state.search_date.end,
          });
+         if (!list) setNewToken({ setLoading });
+         else setState({ ...state, list, total_count: list.length });
          console.log("주문 내역", list);
-         setState({ ...state, list, total_count: list.length });
       } catch (err) {
          console.error(err.response);
       } finally {

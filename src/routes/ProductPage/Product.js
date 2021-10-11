@@ -144,7 +144,7 @@ const PaymentModalContents = ({ product, wallet, user, pay }) => {
                ]}
             />
          </details>
-         <Button onClick={pay}>결제하기</Button>
+         {product.price <= wallet.balance ? <Button onClick={pay}>결제하기</Button> : <Button className="no-balance">잔액이 부족합니다</Button>}
       </PaymentModal>
    );
 };
