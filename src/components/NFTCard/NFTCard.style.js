@@ -54,11 +54,13 @@ export const HoverBox = styled(CenterColumnFlexDiv)`
    opacity: 0;
    strong {
       font-size: 1.5em;
+      text-align: center;
    }
    p:first-of-type {
       margin: 20px 0;
       font-size: 1em;
       font-weight: 500;
+      text-align: center;
    }
 `;
 
