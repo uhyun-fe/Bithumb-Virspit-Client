@@ -42,7 +42,7 @@ const SearchLogic = ({ match, history, is_login }) => {
          const { data: list } = await productApi.searchProductList({ word: match.params.keyword });
          setState({
             ...state,
-            list: list.map((item) => ({ ...item, is_liked: state.liked_list.length > 0 ? state.liked_list.indexOf(item.id) >= 0 : false })),
+            list: list.map((item) => ({ ...item, is_liked: state.liked_list.length > 0 ? state.liked_list.indexOf(parseInt(item.id)) >= 0 : false })),
             total: list.length,
          });
       } catch (err) {

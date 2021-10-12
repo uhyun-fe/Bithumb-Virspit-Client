@@ -83,7 +83,7 @@ const HomeLogic = ({ match, history, is_login }) => {
             teamPlayerType: state.is_team ? "TEAM" : "PLAYER",
          });
          if (state.liked_list.length > 0) {
-            setNftList(list.map((item) => ({ ...item, is_liked: state.liked_list.indexOf(item.id) >= 0 })));
+            setNftList(list.map((item) => ({ ...item, is_liked: state.liked_list.indexOf(parseInt(item.id)) >= 0 })));
          } else {
             setNftList(list.map((item) => ({ ...item, is_liked: false })));
          }
